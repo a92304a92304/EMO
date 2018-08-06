@@ -1,0 +1,38 @@
+// 向上滑動
+@keyframes slide-up
+  0%
+    opacity: 0
+    transform: translateY(2rem)
+
+  100%
+    opacity: 1
+
+// 淡入
+@keyframes fade-in
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@keyframes letter-ani
+  0%
+    opacity: 0
+    letter-spacing: 30px
+
+  100%
+    opacity: 1
+    letter-spacing: 7px
+
+.slide-up
+  animation: slide-up 1.4s forwards 0s
+  opacity: 0
+
+.fade-in
+  animation: fade-in .7s forwards 0s
+  opacity: 0
+  transform-origin: left bottom
+
+.letter-ani
+  animation: letter-ani 1.5s forwards 0s
+  opacity: 0

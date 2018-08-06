@@ -1,0 +1,75 @@
+.manage
+  .drag
+    transition: background-color .2s
+    &:hover
+      cursor: move
+      background-color: $gray-transucent
+  .pointer
+    &:hover
+      cursor: poniter
+  .ui.label
+    img:hover
+      cursor: pointer
+  .animated
+    animation-duration: .75s
+    &.fadeInUp
+      animation-duration: .3s
+
+.progress-area
+  position: fixed
+  bottom: 1rem
+  left: 0
+  right: 0
+  z-index: 10000
+
+.progress-bar
+  background-color: $primary
+  color: $black
+  overflow: hidden
+
+.list-complete-item
+  transition: all 1s
+
+.list-complete-enter, .list-complete-leave-active
+  opacity: 0
+
+.back-btn
+  background-color: #333
+  font-weight: 700
+  padding: .4rem .8rem
+  font-size: .8rem
+  display: inline-block
+  border-radius: 5px
+  text-align: center
+  transition: all .3s
+  color: rgba(white, .5)
+  border: 0 solid white
+  margin-right: 1rem
+  &:hover
+    cursor: pointer
+    background-color: #444
+    color: rgba(white, .75)
+    border: 0 solid white
+
+// 超過3行省略顯示(僅webkit有效)
+
+.manage-einstein
+  p.ellipsis
+    $ellipsisLineHeight: 1.5rem
+    $ellipsisLineNum: 4
+    margin-bottom: 0
+    line-height: $ellipsisLineHeight
+    height: $ellipsisLineHeight * $ellipsisLineNum
+    position: relative
+    overflow : hidden
+    text-overflow: ellipsis
+    display: -webkit-box
+    -webkit-line-clamp: $ellipsisLineNum
+    -webkit-box-orient: vertical
+    &:after
+      content: ''
+      text-align: right
+      position: absolute
+      bottom: 0
+      right: 0
+      padding: 0 5px

@@ -1,0 +1,48 @@
+#snackbar-container
+  position: fixed
+  bottom: 0
+  left: 0
+  z-index: 99999
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+
+.snackbar
+  display: inline-block
+  min-width: 200px
+  max-height: 0
+  opacity: 0
+  transition: transform .25s cubic-bezier(0, 0, .2, 1), opacity 0s .25s, max-height .25s
+  transform: translateY(100%)
+
+  &.toast .snackbar-content
+    border-radius: 10rem
+
+.snackbar-content
+  display: block
+  padding: .8rem 1.5rem
+  margin-top: 3px
+  font-size: .9rem
+  color: white
+  background-color: $black
+  border-radius: 2px
+
+  .btn
+    margin-bottom: 0
+
+.snackbar.snackbar-opened
+  max-height: 100px
+  opacity: 1
+  transition: transform .25s cubic-bezier(0, 0, .2, 1), opacity 0s 0s, max-height .25s
+  transform: translateY(0%)
+
+
+@media (max-width: 576px)
+  #snackbar-container
+    right: 1rem
+    left: 1rem
+    width: 100%
+
+  .snackbar
+    min-width: 200px

@@ -1,0 +1,98 @@
+.navbar
+  transition: all .3s
+  background-color: rgba($black, 1)
+  +py(1.5rem)
+  .navbar-brand
+    margin-right: 2rem
+    .logo
+      height: 2rem
+      vertical-align: text-bottom
+      transition: all .2s
+      margin-right: .5rem
+    span
+      transform-origin: left center
+      font-size: 1.5rem
+      display: inline-block
+      transition: all .2s
+
+  .nav-item
+    a.nav-link
+      line-height: 18px
+  .active
+    border-bottom: 2px solid white
+  a.nav-link:hover
+    cursor: pointer
+  ul
+    position: relative
+
+.navbar-shrink
+  background: rgba($black, 1)
+  +box-shadow
+  +py(.6rem)
+  .nav-item.active
+    border-bottom: 0px solid white
+  .navbar-brand
+    .logo
+      height: 1.5rem
+      vertical-align: text-bottom
+    span
+      display: inline-block
+      max-width: 170px
+      font-size: 1.25rem
+
+@media (max-width: 1199.98px) // 行動版navbar
+  .navbar
+    .navbar-brand
+      margin-right: 2rem
+      font-size: 16px
+      .logo
+        height: 1.5rem
+      span
+        display: inline-block
+        max-width: 170px
+        font-size: 1.25rem
+    .nav-item.active
+      border-bottom: 0px solid white
+
+.navbar-toggler
+  border: 0 solid black
+
+@media (max-width: 575.98px)
+  .navbar-shrink
+    +py(.6rem)
+    .navbar-brand span
+      transform: scale(.8)
+      opacity: 0
+
+// 切換語言按鈕
+
+.language-toggle
+  button
+    background-color: #333
+    font-weight: 700
+    padding: .4rem .8rem
+    font-size: .8rem
+    display: inline-block
+    border-radius: 5px
+    text-align: center
+    transition: all .3s
+    color: rgba(white, .5)
+    border: 0 solid white
+    &:hover
+      cursor: pointer
+      background-color: #444
+      color: rgba(white, .75)
+      border: 0 solid white
+  span
+    vertical-align: baseline
+    margin-left: .5rem
+    display: inline-block
+  .animated
+    animation-duration: .25s
+
+// 行動版切換語言按鈕
+@media (max-width: 1199.98px)
+  .language-toggle
+    position: absolute
+    bottom: .25rem
+    right: 0rem

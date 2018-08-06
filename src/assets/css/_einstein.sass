@@ -1,0 +1,185 @@
+$einstein-menu-width: 20rem
+
+.einstein
+  .menu
+    transition: top .4s
+    z-index: 1
+    background-color: #eee
+    background-size: cover
+    background-position: center
+    width: $einstein-menu-width
+    height: 100vh
+    position: fixed
+    top: 65px
+    padding-top: 3rem
+    +box-shadow
+    &.shrink
+      top: 20px
+
+    h1
+      text-align: right
+      font-size: 2rem
+      color: $black
+      font-family: $title-font
+      margin-top: 2rem
+      margin-right: 2rem
+      &.ch
+        margin-top: 1rem
+        font-size: 1.2rem
+        color: $primary-dark
+        br
+          display: block
+    nav
+      flex-direction: column
+      z-index: 1000
+      a
+        +my(5px)
+        +py(0px)
+        color: rgba($black,.4)
+        font-size: 1.2rem
+        transition: all .3s
+        border-right: 3px solid rgba($secondary,0)
+        &:hover
+          color: rgba($black,.8)
+          transform: translateX(-.25rem)
+        &.active
+          color: $black
+          border-right: 3px solid $secondary
+          // background-color: rgba(white, .4)
+
+  .content
+    position: relative
+    margin-top: 70px
+    padding-left: $einstein-menu-width + 1rem
+    padding-right: 1rem
+    padding-top: 4rem
+    min-height: 35rem
+
+    section
+      animation-duration: .3s
+      &.fadeOut
+        animation-duration: .2s
+      img
+        border-radius: 5px
+      img.figure
+        +box-shadow(.1rem)
+        margin: 1.5rem
+      img
+        &.figure
+        &.figure-float
+          max-width: 400px
+          float: right
+
+
+@media (max-width: 991.98px)
+  .einstein
+    .menu
+      width: 100%
+      position: relative
+      top: 0
+      height: auto
+      padding-top: 1rem
+      &.shrink
+        top: 0px
+      h1
+        text-align: left
+        +my(0)
+        margin-top: 0
+        &.ch
+          br
+            display: none
+      nav
+        flex-direction: row
+        flex-wrap: nowrap
+        overflow-x: scroll
+        +my(10px)
+        a
+          white-space: nowrap
+          border-right: 0px solid rgba($secondary,0)
+          border-bottom: 3px solid rgba($secondary,0)
+          +px(10px)
+          &:hover
+            transform: translate(0)
+          &.active
+            color: $black
+            border-right: 0px solid $secondary
+            border-bottom: 3px solid $secondary
+            background-color: transparent
+        .nav-link
+          .loading-text-block
+            width: 5rem
+
+        &:after, &:before
+          content: ''
+          position: absolute
+          bottom: 0
+          right: 0
+          width: 2rem
+          height: 100%
+          background: linear-gradient(to right, rgba(#eee, 0), rgba(#eee, 1) 100%)
+
+        &:before
+          left: 0
+          background: linear-gradient(to left, rgba(#eee, 0), rgba(#eee, 1) 100%)
+
+    .content
+      margin-top: 0
+      padding-left: 0
+      padding-top: 2rem
+      min-height: 0
+      section
+        img
+          &.figure
+          &.figure-float
+            max-width: 100%
+            float: none
+            margin: 0
+            margin-bottom: 1rem
+
+// Loader
+.einstein
+  nav .nav-link
+    .loading-text-block
+      height: 1.2rem
+      max-width: 7rem
+
+  h2.subtitle
+    .loading-text-block
+      height: 2.2rem
+      max-width: 10rem
+      background-color: #eee
+
+  section
+    .loading-text-block
+      background-color: #eee
+      height: .8rem
+      margin-bottom: .25rem
+
+
+@keyframes fade
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+.fade-enter-active
+  animation: fade .2s
+
+@keyframes fadeInUp
+  0%
+    opacity: 0
+    transform: translateY(2rem)
+  100%
+    opacity: 1
+
+@keyframes fadeOut
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+.fadeMove-enter-active
+  animation: fadeInUp .2s
+
+.fadeMove-leave-active
+  animation: fadeOut .1s

@@ -1,0 +1,186 @@
+@import "function"
+@import "color"
+@import "semantic"
+
+[v-cloak]
+   display: none
+
+html
+  font-size: 16px
+
+body
+  font-family: $default-font
+  color: $text-black
+
+@media (max-width: 576px)
+  html
+    font-size: 15px    // 響應式字體
+
+main
+  margin-bottom: 3rem
+  min-height: 70vh
+
+@media (max-width: 992px)
+  main
+    margin-top: 5.5rem
+
+h5
+  font-weight: bold
+
+p
+  font-family: "PT Serif",'Times New Roman',Georgia,serif,'Microsoft JhengHei'
+  line-height: 2rem
+  .label
+    font-family: $default-font
+a
+  transition: color .2s
+  color: #333
+  &:hover
+    color: rgba(#333, .8)
+
+.feature-divider
+  margin: 5rem 0
+
+
+.member, .publication
+  margin-top: 0rem
+.investigator
+  margin-top: 2rem
+
+.loading
+  margin-top: 10rem
+  &.page
+    margin-top: 4rem
+    margin-bottom: 8rem
+
+.parallax-mirror
+  background-color: #333
+
+.jumbotron.title
+  background: transparent
+  +py(8rem)
+  padding-top: 13rem
+  .display-4
+    font-weight: 500
+  .illustration
+    img
+      height: 5rem
+      vertical-align: bottom
+      margin-bottom: .6rem
+  h1.lead
+    letter-spacing: .7rem
+    color: $primary
+
+
+@media (max-width: 992px)
+  .jumbotron.title
+    +py(2rem)
+    .illustration
+      img
+        height: 4rem
+        vertical-align: bottom
+    h1
+      font-size: 3rem
+      text-shadow: 0px 2px 1px rgba(0,0,0,0.6)
+    .lead
+      font-size: 1.2rem
+    &.index
+      padding-top: 2rem
+      h1
+        font-size: 2.4rem
+        &.subtitle
+          font-size: 1.4rem
+      .lead
+        font-size: 1rem
+        line-height: 2rem
+
+
+h2.subtitle // 副標題
+  +my(2rem)
+  text-align: center
+  font-size: 2.2rem
+  font-family: $title-font
+  font-weight: bold
+  color: $text-black
+  &::after
+    content: ''
+    background-color: $secondary
+    display: block
+    height: 4px
+    width: 50px
+    margin-top: 20px
+    +mx(auto)
+  &.no-underline::after
+    background-color: transparent
+
+.modal
+  .modal-content
+    border: 0 solid black
+    border-radius: 0
+  .modal-dialog
+
+  &.fade
+    .modal-dialog
+      transition: all .25s cubic-bezier(0, 0, .2, 1)
+      transform: scale(.98)
+  &.show
+    .modal-dialog
+      transition: all .25s cubic-bezier(0, 0, .2, 1)
+      transform: scale(1)
+
+.center-icon
+  display: inline-block
+  text-align: center
+  min-width: 1.5rem
+
+ol.ui.list
+  li
+    margin-left: 1rem
+    &::before
+      margin-left: -2rem
+
+/*
+ * 取消行動版padding
+ */
+
+.mobile-no-padding
+  &.col-12
+    +px(15px)
+
+@media (max-width: 576px)
+  .mobile-no-padding
+    &.col-12
+      +px(0)
+
+/*
+ * hover游標
+ */
+.pointer:hover
+  cursor: pointer
+
+/*
+ * 載入中色塊
+ */
+.loading-text-block
+  border-radius: 5px
+  background-color: #ddd
+  display: inline-block
+  width: 100%
+  height: 100%
+
+h1
+  .loading-text-block
+    height: 2rem
+    max-width: 30rem
+
+h1.secondary
+  .loading-text-block
+    height: 1rem
+    max-width: 40rem
+
+.loading-circle
+  width: 1.2rem
+  height: 1.2rem
+  border-radius: 100%
+  background-color: #eee
+  display: inline-block

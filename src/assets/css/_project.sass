@@ -1,0 +1,71 @@
+// 各作品詳細內容之樣式
+
+.jumbotron.project
+  background-size: cover
+  background-position: center center
+  background-color: rgba(black, .4)
+  padding-top: 10rem
+  position: relative
+  display: flex
+  justify-content: center
+  align-content: center
+  hr
+    width: 100px
+    border: 3px solid $primary
+  h1
+    text-align: center
+    font-size: 2rem
+    &.secondary
+      font-size: 1rem
+  .cover-btn
+    position: absolute
+    right: 3rem
+    bottom: 3rem
+    a
+      color: white
+  >.container
+    +my(5rem)
+
+.thesis
+  .detail
+    margin-top: 2rem
+    h4
+      font-size: .8rem
+      margin-right: .5rem
+      margin-bottom: .2rem
+      padding-bottom: .2rem
+      border-bottom: 1px solid rgba(black,.5)
+      color: $secondary-dark
+    .badge
+      margin-right: .25rem
+  .gallery
+    a
+      display: inline-block
+      img
+        transition: all .4s
+        background-color: white
+      &:hover
+        img
+          transform: scale(1.1) translateX(-1rem)
+          +box-shadow
+          z-index: 9999999
+
+@media (max-width: 991.98px)
+  .jumbotron.project
+    padding-top: 6rem
+    h1
+      text-shadow: 0px 0px 3px rgba(0,0,0,0.4), 0px 0px 3px rgba(0,0,0,0.4)
+    .cover-btn
+      right: 2rem
+      bottom: 2rem
+    >.container
+      +my(3rem)
+  .thesis
+    .gallery
+      a:hover img
+        transform: none
+
+
+@media (max-width: 575.98px)
+  .jumbotron.project
+    padding-top: 2rem
