@@ -42,13 +42,25 @@ export default new Router({
       path: '/thesis/:category/:id',
       name: 'thesisDetail',
       component: ThesisDetail,
-      meta: { title: 'Graduate Thesis - EM Optimization Lab - NTUT - EM Optimization Lab - NTUT' }
+      meta: { title: 'Graduate Thesis - EM Optimization Lab - NTUT ' }
     },
     {
       path: '/thesis',
       name: 'thesis',
       component: Thesis,
-      meta: { title: 'Graduate Thesis - EM Optimization Lab - NTUT - EM Optimization Lab - NTUT' }
+      meta: { title: 'Graduate Thesis - EM Optimization Lab - NTUT' }
+    },
+    {
+      path: '/project/:category/:id',
+      name: 'projectDetail',
+      component: ThesisDetail,
+      meta: { title: 'Undergraduate Project - EM Optimization Lab - NTUT' }
+    },
+    {
+      path: '/project',
+      name: 'project',
+      component: Thesis,
+      meta: { title: 'Undergraduate Project - EM Optimization Lab - NTUT' }
     },
     {
       path: '/member',
@@ -62,9 +74,6 @@ export default new Router({
       component: Contact,
       meta: { title: 'Contact Us - EM Optimization Lab - NTUT' }
     },
-
-    // Graduate Thesis - EM Optimization Lab - NTUT
-    // Undergraduate Project - EM Optimization Lab - NTUT
 
     // {
     //   path: '/about',

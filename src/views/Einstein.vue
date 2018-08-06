@@ -62,7 +62,7 @@ main
                     a(:href='i.link', target='_blank', v-html='selectTextLanguage(language, i.title, i.title_en)')
                   p(v-html='selectTextLanguage(language, i.content, i.content_en)') .
                   a.ui.label(v-if="translateYoutubeLink(i.youtube) != ''", @click='showModalYoutube(i.youtube)')
-                    fa.text-danger(icon='youtube')
+                    fa.text-danger(:icon='[`fab`, `youtube`]')
                     |  Youtube
                 .col-12.col-lg-3.mb-3.order-1.order-lg-2
                   img.img-fluid.figure.m-0(:src='i.img')
@@ -75,7 +75,7 @@ main
                   a(:href='i.link', target='_blank') {{selectTextLanguage(language, i.title, i.title_en)}}
                 small {{selectTextLanguage(language, i.source, i.source_en)}} | {{i.date}}
                 a.ui.label.mt-2(v-if="translateYoutubeLink(i.youtube) != ''", @click='showModalYoutube(i.youtube)')
-                  fa.text-danger(icon='youtube')
+                  fa.text-danger(:icon='[`fab`, `youtube`]')
                   |  Youtube
 
           section(v-else-if="einstein[currentPage].page == 'partnerships'", key='5')
@@ -116,6 +116,9 @@ export default {
   mounted () {
     this.setBg()
     this.fetch('einstein')
+    $('#modal-youtube').on('hidden.bs.modal', () => {
+      self.modalYoutube = ''
+    })
   },
   methods: {
     setEinsteinCurrPage: function(n) {

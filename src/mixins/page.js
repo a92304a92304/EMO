@@ -26,11 +26,11 @@ const page = {
       })
     },
     fetchCarousel (child) {
-      const self = this
+      const vm = this
       config.dbRef.child('carousel').child(child).once('value', function(snap) {
-        self.carousel = snap.val()
+        vm.carousel = snap.val()
         $('#carousel').carousel({
-          interval: self.carousel.interval,
+          interval: vm.carousel.interval,
         })
       })
     },
@@ -40,9 +40,13 @@ const page = {
     },
     getThesisItemLink(category, id) { // 取得Thesis列表各項目連結網址
       if (this.$route.name == 'thesis')
-        return `./thesis.html?category=${category}&id=${id}`
+        return `/thesis/${category}/${id}`
       else
-        return `./project.html?category=${category}&id=${id}`
+        return `/project/${category}/${id}`
+    },
+    showModalImg (img) {
+      this.modalImg = img
+      $('#modal-img').modal('show')
     }
   },
   components: {

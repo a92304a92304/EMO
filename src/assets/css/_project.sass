@@ -9,6 +9,15 @@
   display: flex
   justify-content: center
   align-content: center
+  .filter
+    position: absolute
+    z-index: 0
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    background-color: rgba(black, .4)
+
   hr
     width: 100px
     border: 3px solid $primary
@@ -23,7 +32,8 @@
     bottom: 3rem
     a
       color: white
-  >.container
+  .container
+    z-index: 898
     +my(5rem)
 
 .thesis

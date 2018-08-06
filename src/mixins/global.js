@@ -101,6 +101,16 @@ const globalMethods = {
     calcObjLength (obj) {
       if (obj) return Object.keys(obj).length
       else return 0
+    },
+    translateYoutubeSrc(url) {
+      if (url == '') return ''
+      try{
+        var id = url.split('?v=')[1].split('&')[0]
+        return `https://www.youtube.com/embed/${id}`
+      }
+      catch(err){
+        return ''
+      }
     }
   },
 }
