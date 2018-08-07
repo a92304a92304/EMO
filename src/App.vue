@@ -55,7 +55,6 @@ export default {
     isNavbarAndFooterShow () {
       const page = this.$route.name || ''
       const list = ['login', 'manage']
-      console.log(page);
       return !list.some((val) => page.indexOf(val) > -1  )
     }
   },

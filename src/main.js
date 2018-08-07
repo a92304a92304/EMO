@@ -14,7 +14,7 @@ import Loading from '@/components/Loading.vue'
 
 import { globalMethods } from './mixins/global.js'
 import * as VueGoogleMaps from 'vue2-google-maps'
-
+import draggable from 'vuedraggable'
 
 library.add(fas)
 library.add(fab)
@@ -22,9 +22,22 @@ library.add(fab)
 Vue.mixin(globalMethods)
 
 Vue.component('fa', FontAwesomeIcon)
+Vue.component('draggable', draggable)
 Vue.component('loading', Loading)
-
 Vue.component('modal-img', ModalImg)
+
+//
+
+import AddBtn from '@/components/manage/AddBtn.vue'
+import VerticalMenu from '@/components/manage/VerticalMenu.vue'
+import FormLabel from '@/components/manage/FormLabel.vue'
+
+Vue.component('add-btn', AddBtn)
+Vue.component('vertical-menu', VerticalMenu)
+Vue.component('form-label', FormLabel)
+
+//
+
 
 Vue.config.productionTip = false
 
@@ -33,6 +46,8 @@ Vue.use(VueGoogleMaps, {
     key: 'AIzaSyBS6J7v9nG5bvbIN-mR0NhSjRdNtigemJk',
   },
 })
+
+
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || `EM Optimization Lab - NTUT`

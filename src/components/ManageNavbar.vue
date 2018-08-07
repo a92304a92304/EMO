@@ -17,10 +17,10 @@ header
               span.d-inline.d-xl-none(v-html='p.shortName')
               span.d-none.d-xl-inline(v-html='p.shortNameWrap')
           li.nav-item
-            a#logout-btn.nav-link.text-warning(v-if='isLogin', @click='logout()')
+            a#logout-btn.nav-link.text-warning(v-if='isLogin' @click='logout()')
               fa(icon='sign-out-alt')
               |  Logout
-            a.nav-link(v-if='!isLogin') ...
+            a.nav-link(v-else) ...
 </template>
 
 <script>
@@ -38,7 +38,7 @@ export default {
     this.checkAuth()
   },
   methods: {
-    logout () {   // 登出
+    logout () {
       config.auth.signOut()
     },
   },

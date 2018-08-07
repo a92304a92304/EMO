@@ -1,7 +1,7 @@
 <template lang="pug">
-div
+.manage
   ManageNavbar
-  router-view
+  router-view(style=`margin-top: 6rem`)
 </template>
 
 <script>
@@ -9,7 +9,6 @@ import ManageNavbar from '@/components/ManageNavbar.vue'
 export default {
   data () {
     return {
-      data: null,
     }
   },
   mounted () {

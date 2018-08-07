@@ -12,7 +12,7 @@ main
       a(href='#', @click.prevent='showModalImg(data.img.cover)')
         fa(icon='external-link-alt')
 
-  .jumbotron.jumbotron-fluid.project(v-if='!data' style={backgroundColor: '#eee'})
+  .jumbotron.jumbotron-fluid.project(v-else style={backgroundColor: '#eee'})
     .container.text-light
       template(v-if='!language')
         h1
