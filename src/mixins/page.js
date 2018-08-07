@@ -23,6 +23,16 @@ const page = {
       const vm = this
       config.dbRef.child(`${page}`).once('value', function(snap) {
         vm[page] = snap.val()
+
+        if(page == `member`){
+          for (var key in vm.member) {
+            vm.member[key].forEach((val, index) => {
+              if(!val.hasOwnProperty('content'))
+                vm.member[key][index].content = []
+            })
+          }
+        }
+        
       })
     },
     fetchCarousel (child) {

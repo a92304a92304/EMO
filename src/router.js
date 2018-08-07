@@ -10,6 +10,10 @@ import Member from './views/Member.vue'
 import Contact from './views/Contact.vue'
 
 import Login from './views/Login.vue'
+import Manage from './views/manage/Manage.vue'
+import ManageInvestigator from './views/manage/Investigator.vue'
+
+
 
 Vue.use(Router)
 
@@ -80,6 +84,19 @@ export default new Router({
       name: 'login',
       component: Login,
       meta: { title: 'Login - EM Optimization Lab - NTUT' }
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      component: Manage,
+      meta: { title: 'Manage - EM Optimization Lab - NTUT' },
+      children: [
+        {
+          path: 'investigator',
+          name: 'manage/investigator',
+          component: ManageInvestigator,
+        },
+      ],
     },
 
     // {

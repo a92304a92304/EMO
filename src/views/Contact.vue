@@ -46,7 +46,6 @@ import { page } from '@/mixins/page.js'
 export default {
   data () {
     return {
-      data: null,
       contact: null,
       labPosition: { lat: 25.043133, lng: 121.536019 }
     }

@@ -47,7 +47,6 @@ import { page } from '@/mixins/page.js'
 export default {
   data () {
     return {
-      data: null,
       investigator: null,
     }
   },

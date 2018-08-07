@@ -11,11 +11,11 @@ main#login.pt-2.pt-md-5
           label.sr-only(for='password') Password
           input.form-control.login-password(type='password', name='password', placeholder='Password', v-model='password', @keyup.enter='login(setLoginMessage)', maxlength='20')
           .my-2
-            span(v-if='!loginMsg')
-            fa(icon='spinner' v-else-if='loginMsg == `loading`' spin)
+            span(v-if='!loginMessage')
+            fa(icon='spinner' v-else-if='loginMessage == `loading`' spin)
             span.text-danger(v-else)
               fa.mr-1(icon='times')
-              span {{ loginMsg }}
+              span {{ loginMessage }}
           a#login-btn.btn.btn-block.btn-dark.btn-block.my-3(tabindex='0', @click='login(setLoginMessage)')
             fa(icon='lock')
             |  Login
@@ -34,9 +34,9 @@ import * as config from '@/config'
 export default {
   data () {
     return {
-      email: '',
-      password: '',
-      loginMsg: '',
+      email: 'a92304a92304@gmail.com',
+      password: '123456',
+      loginMessage: '',
     }
   },
   mounted () {
@@ -68,7 +68,7 @@ export default {
       })
     },
     setLoginMessage: function (string) {
-      this.loginMsg = (string == '') ? '' : string
+      this.loginMessage = (string == '') ? '' : string
     },
   },
 }

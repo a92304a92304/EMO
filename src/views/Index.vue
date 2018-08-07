@@ -102,7 +102,6 @@ import anime from 'animejs'
 export default {
   data () {
     return {
-      data: null,
       carousel: null,
       index: null,
     }

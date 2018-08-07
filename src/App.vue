@@ -53,10 +53,10 @@ export default {
   },
   computed: {
     isNavbarAndFooterShow () {
-      const page = this.$route.name
+      const page = this.$route.name || ''
       const list = ['login', 'manage']
-
-      return !list.some((val) => page == val )
+      console.log(page);
+      return !list.some((val) => page.indexOf(val) > -1  )
     }
   },
   components: { Navbar, Footer }

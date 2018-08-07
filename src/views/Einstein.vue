@@ -107,7 +107,6 @@ import { page } from '@/mixins/page.js'
 export default {
   data () {
     return {
-      data: null,
       einstein: null,
       currentPage: 0,
       modalYoutubeLink: ``,

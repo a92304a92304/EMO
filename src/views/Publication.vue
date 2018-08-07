@@ -18,15 +18,12 @@ import { page } from '@/mixins/page.js'
 export default {
   data () {
     return {
-      data: null,
       publication: null,
     }
   },
   mounted () {
     this.setBg()
     this.fetch('publication')
-  },
-  methods: {
   },
   mixins: [page]
 }
