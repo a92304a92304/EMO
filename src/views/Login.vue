@@ -1,5 +1,5 @@
 <template lang="pug">
-main#login.mt-2.mt-md-5
+main#login.pt-2.pt-md-5
   .container
     .row.justify-content-center
       .col-12.col-sm-8.col-md-6.col-lg-4.text-center
@@ -9,9 +9,14 @@ main#login.mt-2.mt-md-5
           label.sr-only(for='email') Email address
           input.form-control.login-email(type='email', placeholder='Email', autofocus, v-model='email', maxlength='30')
           label.sr-only(for='password') Password
-          input.form-control.login-password(type='password', name='password', placeholder='Password', v-model='password', @keyup.enter='login(setLoginMsg)', maxlength='20')
-          .my-2(v-html='loginMsg')
-          a#login-btn.btn.btn-block.btn-dark.btn-block.my-3(tabindex='0', @click='login(setLoginMsg)')
+          input.form-control.login-password(type='password', name='password', placeholder='Password', v-model='password', @keyup.enter='login(setLoginMessage)', maxlength='20')
+          .my-2
+            span(v-if='!loginMsg')
+            fa(icon='spinner' v-else-if='loginMsg == `loading`' spin)
+            span.text-danger(v-else)
+              fa.mr-1(icon='times')
+              span {{ loginMsg }}
+          a#login-btn.btn.btn-block.btn-dark.btn-block.my-3(tabindex='0', @click='login(setLoginMessage)')
             fa(icon='lock')
             |  Login
           a(href='javascript:history.go(-1);')
@@ -35,35 +40,34 @@ export default {
     }
   },
   mounted () {
-    this.CheckAuth(this.setLoginMsg)
+    this.checkAuth(this.setLoginMessage)
   },
   methods: {
     login: function () { // [登入]
-      const self = this
+      const vm = this
       const promise = config.auth.signInWithEmailAndPassword(this.email, this.password)
-      self.setLoginMsg('<span><i class="fas fa-spinner fa-spin"></i></span>')  // 旋轉圓圈
+      vm.setLoginMessage('loading')  // 旋轉圓圈
 
       promise.catch(function (e) {  // 登入失敗
-        self.setLoginMsg(`<span class="text-danger">${FAIL_ICON}  ${e.message}</span>`)
+        vm.setLoginMessage(e.message)
       })
 
       promise.then(function (e) { // 登入成功
-        self.setLoginMsg('')
-        $('main').append(self.MetaRefresh(1, './manage.html'))
-        $('#login-btn').removeClass('btn-dark').addClass('btn-success disabled').html('<i class="fas fa-unlock"></i>')
+        vm.setLoginMessage('')
+        vm.$router.push('/manage')
       })
     },
-    CheckAuth: function (setLoginMsg) { // [檢查登入狀態]
-      const self = this
+    checkAuth: function (setLoginMessage) { // [檢查登入狀態]
+      const vm = this
       const unsubscribe = config.auth.onAuthStateChanged(function (user) {
         if (user) {
-          // $('main').html(self.MetaRefresh(0, './manage.html'))
+          vm.$router.push('/manage')
         } else {
           unsubscribe()  // 呼叫自己 -> 解除on事件
         }
       })
     },
-    setLoginMsg: function (string) {
+    setLoginMessage: function (string) {
       this.loginMsg = (string == '') ? '' : string
     },
   },
@@ -71,5 +75,26 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/css/_login.sass"
+main
+  margin: 0
+  height: 100vh
+  background: #eee
+
+a.btn-dark
+  color: white
+  &:hover
+    color: white
+
+input
+  &.login-email
+    margin-bottom: -1px
+    border-bottom-right-radius: 0
+    border-bottom-left-radius: 0
+  &.login-password
+    border-top-left-radius: 0
+    border-top-right-radius: 0
+
+.logout-leave
+  transform: scale(0)
+
 </style>

@@ -43,7 +43,7 @@ footer
         |  ©
         span#footer-year(v-html='getYear()')  2018
         |  EM Optimization Lab. All rights reserved.
-        a(href='login.html', title='後台管理')
+        router-link.mx-1(to='/login' title='後台管理')
           fa(icon='wrench')
 </template>
 
