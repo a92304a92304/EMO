@@ -36,7 +36,7 @@ main
         span.carousel-control-next-icon(aria-hidden='true')
 
   loading(c='page', v-if='!member')
-  .container.member(v-if='member', v-cloak)
+  .container.member(v-if='member')
     template(v-for='(p, p_index) in member.investigator[0].content')
       h2.subtitle {{(!language)? '主持人' : 'Principal Investigator'}}
       .row.justify-content-center.align-items-center.mb-5
@@ -51,7 +51,7 @@ main
 
     hr
     // Student
-    template(v-for='(s, s_index) in member.student', v-if='s.content.length!=0')
+    template(v-for='(s, s_index) in member.student', v-if='calcArrayLength(s.content) != 0')
       h2.subtitle
         | {{(!language)?s.category:s.category_en}}
       .row.justify-content-around
@@ -90,6 +90,7 @@ export default {
   mounted () {
     this.setBg()
     this.fetch('member')
+
   },
   methods: {
     getMemberImgLink (obj) {

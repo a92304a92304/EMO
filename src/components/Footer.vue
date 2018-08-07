@@ -41,7 +41,7 @@ footer
           | National Taipei University of Technology
       .col-12.col-md-12.mt-3.text-center
         |  ©
-        span#footer-year(v-html='GetYear()')  2018
+        span#footer-year(v-html='getYear()')  2018
         |  EM Optimization Lab. All rights reserved.
         a(href='login.html', title='後台管理')
           fa(icon='wrench')
@@ -54,10 +54,6 @@ export default {
     }
   },
   methods: {
-    GetYear () {
-      const year = (new Date()).getFullYear()
-      return (year > 2018) ? `2018-${year}` : '2018'
-    }
   },
   props: ['language']
 }

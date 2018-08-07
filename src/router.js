@@ -6,9 +6,10 @@ import Investigator from './views/Investigator.vue'
 import Publication from './views/Publication.vue'
 import Thesis from './views/Thesis.vue'
 import ThesisDetail from './views/ThesisDetail.vue'
-
 import Member from './views/Member.vue'
 import Contact from './views/Contact.vue'
+
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -73,6 +74,12 @@ export default new Router({
       name: 'contact',
       component: Contact,
       meta: { title: 'Contact Us - EM Optimization Lab - NTUT' }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: { title: 'Login - EM Optimization Lab - NTUT' }
     },
 
     // {

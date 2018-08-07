@@ -102,6 +102,13 @@ const globalMethods = {
       if (obj) return Object.keys(obj).length
       else return 0
     },
+    calcArrayLength (array) {
+      try {
+        return(array.length)
+      } catch (e) {
+        return 0
+      }
+    },
     translateYoutubeSrc(url) {
       if (url == '') return ''
       try{
@@ -111,6 +118,10 @@ const globalMethods = {
       catch(err){
         return ''
       }
+    },
+    getYear () {
+      const year = (new Date()).getFullYear()
+      return (year > 2018) ? `2018-${year}` : '2018'
     }
   },
 }

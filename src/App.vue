@@ -1,8 +1,8 @@
 <template lang="pug">
 #app
-  Navbar(:language='language' @toggleLanguage='toggleLanguage')
+  Navbar(:language='language' @toggleLanguage='toggleLanguage' v-show='isNavbarAndFooterShow')
   router-view(:language='language')
-  Footer(:language='language')
+  Footer(:language='language' v-show='isNavbarAndFooterShow')
 </template>
 
 <script>
@@ -50,6 +50,14 @@ export default {
         this.language = (Cookies.get('language') == 'true')
       }
     },
+  },
+  computed: {
+    isNavbarAndFooterShow () {
+      const page = this.$route.name
+      const list = ['login', 'manage']
+
+      return !list.some((val) => page == val )
+    }
   },
   components: { Navbar, Footer }
 }
