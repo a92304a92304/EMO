@@ -1,5 +1,6 @@
 import * as config from '@/config'
 import FileProgessBar from '@/components/manage/FileProgressBar.vue'
+import randomString from 'random-base64-string'
 
 const manage = {
   data () {
@@ -38,10 +39,10 @@ const manage = {
       this.subPage = value
       this.newThesisCategory = (new Date()).getFullYear() - 1
     },
-    getRandomNum : function () {
-      return (new Date()).getTime()
+    getRandomNum () {
+      return randomString(6)
     },
-    queryArray: function(array, p, name) {
+    queryArray (array, p, name) {
       const vm = this
       let num = 0
       array.forEach((val, index) => {

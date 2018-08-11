@@ -110,7 +110,7 @@ const globalMethods = {
         return 0
       }
     },
-    translateYoutubeSrc(url) {
+    translateYoutubeLink(url) {
       if (url == '') return ''
       try{
         var id = url.split('?v=')[1].split('&')[0]

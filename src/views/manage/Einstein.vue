@@ -1,5 +1,5 @@
 <template lang="pug">
-.container(v-if="einstein")
+.manage-einstein.container(v-if="einstein")
   file-progess-bar(:value='fileProgress')
   modal-img(:img='modalImg')
 
@@ -7,25 +7,26 @@
     .col-12.col-md-3.mb-3
       vertical-menu(:subPages='subPages' :subPage='subPage' @c='setSubPage')
 
+    // 前 5 項
     .col-12.col-md(v-if="subPage!='partnerships' && subPage!='add' && subPage!='edit' && subPage!=''")
       h2
         span
           | {{einstein[queryArray(einstein, 'page', subPage)].name}}
           small {{einstein[queryArray(einstein, 'page', subPage)].name_en}}
-        a.compact.ui.tiny.button.mx-3(title='新增' @click="ClickAddEinstein(subPage)") #[fa(icon='plus')]
+        a.compact.ui.tiny.button.mx-3(title='新增' @click="clickAddEinstein(subPage)") #[fa(icon='plus')]
 
-      draggable(v-model="einstein[queryArray(einstein, 'page', subPage)].content", @end="ModifyEinstein('sort', subPage, einstein[queryArray(einstein, 'page', subPage)].content)")
+      draggable(v-model="einstein[queryArray(einstein, 'page', subPage)].content", @end="modifyEinstein('sort', subPage, einstein[queryArray(einstein, 'page', subPage)].content)")
         .ui.segment.drag(v-for="(i, i_index) in einstein[queryArray(einstein, 'page', subPage)].content")
           .row
             .col-12.col-md-auto.order-3.order-md-1(v-if="subPage!='press'")
               img.img-fluid(:src='i.img', style={maxWidth: '200px'})
             .col.order-1.order-md-2
-              h5(v-if="subPage=='demonstration' || subPage=='press'" ) {{i.title}}
+              h5(v-if="subPage=='demonstration' || subPage=='press' || subPage=='equipment'" ) {{i.title}}
               p.ellipsis(v-if="subPage!='press'") {{i.content}}
               span(v-if="subPage=='press'") {{i.source}} | {{i.date}}
             .col-auto.order-2.order-md-3
-              a.text-info.mr-1(href='#', @click="ClickEditEinstein(subPage, i_index)", title='修改') #[fa(icon='edit')]
-              a.text-danger(href='#', @click.prevent="ModifyEinstein('del', subPage, i_index)", title='刪除') #[fa(icon='trash')]
+              a.text-info.mr-1(href='#', @click="clickEditEinstein(subPage, i_index)", title='修改') #[fa(icon='edit')]
+              a.text-danger(href='#', @click.prevent="modifyEinstein('del', subPage, i_index)", title='刪除') #[fa(icon='trash')]
 
 
     // Partnerships List
@@ -41,27 +42,27 @@
           textarea.form-control(rows='5', cols='100', v-model="einstein[queryArray(einstein, 'page', subPage)].content.content_en", placeholder='<同中文>')
 
         .col-auto.form-group.input-group-sm
-          button.compact.ui.teal.button(type='button', @click="ModifyEinstein('edit', 'partnerships', einstein[queryArray(einstein, 'page', subPage)].content)") #[fa(icon='edit')] 修改
+          button.compact.ui.teal.button(type='button', @click="modifyEinstein('edit', 'partnerships', einstein[queryArray(einstein, 'page', subPage)].content)") #[fa(icon='edit')] 修改
 
       hr
       h2 Logo
       .form-group.input-group-sm
         label #[fa(icon='upload')] 上傳Logo圖片
         .custom-file
-          input.custom-file-input(type='file', accept='image/*', @change="UploadEinsteinLogo($event)")
+          input.custom-file-input(type='file', accept='image/*', @change="uploadEinsteinLogo($event)")
           label.custom-file-label Choose New File...
           tip(t='fileSize')
       div
-        draggable(v-model="einstein[queryArray(einstein, 'page', subPage)].content.logo", @end="ModifyEinsteinLogo('sort', einstein[queryArray(einstein, 'page', subPage)].content.logo)", :class="'ui middle aligned divided list'")
+        draggable(v-model="einstein[queryArray(einstein, 'page', subPage)].content.logo", @end="modifyEinsteinLogo('sort', einstein[queryArray(einstein, 'page', subPage)].content.logo)", :class="'ui middle aligned divided list'")
           transition-group(mode='out-in', enter-active-class='animated bounceIn', leave-active-class='animated bounceOut')
             .ui.compact.segment.mr-2.drag(style='display:inline-flex', v-for="(c,c_index) in einstein[queryArray(einstein, 'page', subPage)].content.logo", :key='c.img')
-              img.img-fluid.rounded.pointer(:src='c.img', style='height:64px', @click='ShowModalImg(c.img)')
+              img.img-fluid.rounded.pointer(:src='c.img', style='height:64px', @click='showModalImg(c.img)')
               .ui.bottom.left.attached.label
                 | {{c_index+1}}
-                a.text-danger(@click.prevent="ModifyEinsteinLogo('del', c_index)", title='刪除') #[fa(icon='times')]
+                a.text-danger(@click.prevent="modifyEinsteinLogo('del', c_index)", title='刪除') #[fa(icon='times')]
 
 
-    // Add Einstein
+    // Add / Edit Einstein
     transition(enter-active-class='animated fadeInUp')
       .col-12.col-md(v-if="subPage=='add' || subPage=='edit'")
         .ui.segment
@@ -70,16 +71,20 @@
           .container-fluid
             .row
               .col-12
-                form.form-row(@submit.prevent='ModifyEinstein(subPage)', @keydown.enter.prevent)
-                  .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press'")
+                form.form-row(@submit.prevent='modifyEinstein(subPage)', @keydown.enter.prevent)
+                  .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press' || newObj.type=='equipment'")
                     form-label(ch='標題' en='Title' :r='true')
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.title', required)
 
-                  .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press'")
+                  .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press' || newObj.type=='equipment'")
                     form-label(ch='英文標題' en='Title (English)')
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.title_en', placeholder='<同中文>')
 
-                  .col-12.col-md-12.form-group.input-group-sm(v-if="newObj.type=='press'")
+                  .col-12.form-group.input-group-sm(v-if="newObj.type=='press'")
+                    form-label(ch='來源' en='Source')
+                    input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.source', required)
+
+                  .col-12.form-group.input-group-sm(v-if="newObj.type=='press'")
                     form-label(ch='日期' en='Date')
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.date')
 
@@ -87,16 +92,16 @@
                     form-label(ch='連結' en='Link')
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.link')
 
-                  .col-12.form-group.input-group-sm
-                    form-label(ch='內容' en='Content' :r='true')
-                    textarea.form-control(rows='5', cols='100', required, v-model='newObj.content.content')
+                  .col-12.form-group.input-group-sm(v-if="!(newObj.type=='press')")
+                    form-label(ch='內容' en='Content')
+                    textarea.form-control(rows='5', cols='100', v-model='newObj.content.content')
                     tip(t='br')
 
-                  .col-12.form-group.input-group-sm
+                  .col-12.form-group.input-group-sm(v-if="!(newObj.type=='press')")
                     form-label(ch='英文內容' en='Content (English)')
                     textarea.form-control(rows='5', cols='100', v-model='newObj.content.content_en', placeholder='<同中文>')
 
-                  .col-12.form-group.input-group-sm(v-if="subPage=='demonstration' || subPage=='press'")
+                  .col-12.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press'")
                     label #[fa(:icon='[`fab`, `youtube`]')] Youtube Link
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.youtube')
 
@@ -105,19 +110,19 @@
                     div
                       transition(mode='out-in', enter-active-class='animated bounceIn')
                         .ui.blue.image.label.mx-2.mb-2(v-if="newObj.content.img!=''")
-                          img.bg-light(:src='newObj.content.img', @click.prevent='ShowModalImg(newObj.content.img)')
+                          img.bg-light(:src='newObj.content.img', @click.prevent='showModalImg(newObj.content.img)')
                           |  已上傳
                           a(href='#', @click.prevent="newObj.content.img=''") #[fa(icon='times')]
                         .ui.basic.grey.label.mx-2.mb-2(v-else) no image
                     .custom-file
-                      input.custom-file-input(type='file', accept='image/*', @change="UploadEinsteinImg($event,'cover')")
+                      input.custom-file-input(type='file', accept='image/*', @change="uploadEinsteinImg($event,'cover')")
                       label.custom-file-label Choose New File...
                       tip(t='fileSize')
 
                   .col-12.col-md-12.form-group.input-group-sm
                     button.compact.ui.olive.button(type='submit', v-if="subPage=='add'") #[fa(icon='plus')] 新增
                     button.compact.ui.teal.button(type='submit', v-if="subPage=='edit'") #[fa(icon='edit')] 修改
-                    button.compact.ui.button(type='button', @click='InitEinsteinField()') 取消
+                    button.compact.ui.button(type='button', @click='init()') 取消
 </template>
 
 <script>
@@ -142,54 +147,107 @@ export default {
     this.fetch(`einstein`)
   },
   methods: {
-    clickAddInvestigator (type) {
-      this.initInvestigatorField()
-      this.subPage = 'add'
-      this.newObj.type = type
-    },
-    clickEditInvestigator (type, i_index) {
-      this.initInvestigatorField()
-      this.subPage = 'edit'
-      const ni = this.newObj  // 新investigator obj
-      const i = this.investigator[type][i_index]  // 原investigator obj
-      ni.type = type
-      ni.i_index = i_index
-      ni.content = $.extend(true,{}, i)  // 複製object
-    },
-    initInvestigatorField () {
-      this.subPage = ''
-      this.newObj = {
-        type: '', i_index: '',
-        content: { name: '', name_en: '', content: '', content_en: '', year: '',}
-      }
-    },
-    modifyInvestigator (opertaion, type, data) {
+    modifyEinstein: function (opertaion, type, data) {
       const vm = this
       const dbRef = config.dbRef
-      let list = []
-      let newObj = this.newObj
-      let ref = dbRef.child('investigator/' + type)
+      var list = []
+      var newObj = this.newObj
+      var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', type) + '/content')
 
       switch (opertaion) {
         case 'add':
-          ref = dbRef.child('investigator/' + newObj.type)
+          var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', newObj.type) + '/content/')
           ref.on('value', function(snap) {
             list = (snap.val()) ? snap.val() : []
           })
-          list.unshift(newObj.content)
+          list.push(newObj.content)
           ref.set(list, function (e) {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
-              vm.initInvestigatorField()
+              vm.init()
             } else alert(e)
           })
           break
         case 'edit':
-          ref = dbRef.child('investigator/' + newObj.type + '/' + newObj.i_index)
-          ref.set(newObj.content, function (e) {
+          if(type == 'partnerships'){ // 針對Partnerships修改content
+            var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', 'partnerships') + '/content/')
+
+            ref.set(data, function (e) {
+              if (!e) {
+                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
+              } else alert(e)
+            })
+          }else{
+            var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', newObj.type) + '/content/' + newObj.i_index)
+            ref.set(newObj.content, function (e) {
+              if (!e) {
+                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
+                vm.init()
+              } else alert(e)
+            })
+          }
+          break
+        case 'del':
+          if(confirm(config.CONFIRM_MSG)){
+            ref.on('value', function(snap) {
+              list = (snap.val()) ? snap.val() : []
+            })
+            list.splice(data, 1)
+            ref.set(list, function (e) {
+              if (!e) {
+                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功移除' })
+              } else alert(e)
+            })
+          }
+          break
+        case 'sort':
+          list = data
+          ref.set(list, function (e) {
             if (!e) {
-              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
-              vm.initInvestigatorField()
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 已重新排序' })
+            } else alert(e)
+          })
+          break
+        default:
+      }
+    },
+    uploadEinsteinLogo: function (evt) {
+      const vm = this
+      var file = evt.target.files[0]
+      var fileName = this.getRandomNum().toString()
+      var uploadTask = config.storageRef.child('einstein/logo/' + fileName).put(file)
+
+      if(evt.target.files[0].size > config.MAX_FILE_SIZE){
+        vm.$notify({ group: 'snackbar', type: 'error', title: config.FILE_SIZE_MSG })
+        return
+      }
+
+      uploadTask.on('state_changed',function (snap) {
+        vm.fileProgress = ((snap.bytesTransferred / snap.totalBytes) * 100).toFixed(1)
+      })
+      uploadTask.then(function (snap) {
+        vm.fileProgress = null
+        snap.ref.getDownloadURL().then((url) => {
+          vm.modifyEinsteinLogo('add', {img: url})
+        })
+      })
+    },
+    modifyEinsteinLogo: function (opertaion, data) {
+      const vm = this
+      const dbRef = config.dbRef
+      var list = []
+      var newObj = this.newObj
+      var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', 'partnerships') + '/content/logo')
+
+      switch (opertaion) {
+        case 'add':
+          ref.on('value', function(snap) {
+            list = (snap.val()) ? snap.val() : []
+          })
+          list.push(data)
+          ref.set(list, function (e) {
+            if (!e) {
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
             } else alert(e)
           })
           break
@@ -214,43 +272,64 @@ export default {
             } else alert(e)
           })
           break
-        case 'introduction':
-          ref.set(data, function (e) {
-            if (!e) {
-              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
-
-            } else alert(e)
-          })
-          break
         default:
       }
     },
-    uploadInvestigatorImg (evt) {
+    clickAddEinstein : function (type) {
+      this.init()
+      this.subPage = 'add'
+      this.newObj.type = type
+    },
+    clickEditEinstein : function (type, i_index) {
+      this.init()
+      this.subPage = 'edit'
+      var newObj = this.newObj  // 新index obj
+      var i = this.einstein[this.queryArray(this.einstein, 'page', type)].content[i_index]  // 原index obj
+      newObj.type = type
+      newObj.i_index = i_index
+      newObj.content = $.extend(true,{}, i)  // 複製object
+    },
+    init : function () {
+      this.subPage = (this.newObj) ? this.newObj.type : 'purpose'
+      this.newObj = {
+        type: '', i_index: '',
+        content: { title: '', title_en: '', content: '', content_en: '', img: '', youtube: '', link: ''}
+      }
+      this.newObj = {
+        type: '', i_index: '',
+        content: {img: ''}
+      }
+    },
+    uploadEinsteinImg: function (evt) {
       const vm = this
       var file = evt.target.files[0]
       var fileName = this.getRandomNum().toString()
-      var uploadTask = config.storageRef.child('investigator/'+ fileName).put(file)
+      var uploadTask = config.storageRef.child('einstein/' + fileName).put(file)
 
-      if(evt.target.files[0].size > config.MAX_FILE_SIZE){
+      if(evt.target.files[0].size >  config.MAX_FILE_SIZE){
         vm.$notify({ group: 'snackbar', type: 'error', title: config.FILE_SIZE_MSG })
         return
       }
 
-      uploadTask.on('state_changed',(snap) => {
+      uploadTask.on('state_changed',function (snap) {
         vm.fileProgress = ((snap.bytesTransferred / snap.totalBytes) * 100).toFixed(1)
+        vm.file = file
       })
-      uploadTask.then((snap) => {
+      uploadTask.then(function (snap) {
         vm.fileProgress = null
         snap.ref.getDownloadURL().then((url) => {
-          vm.investigator.introduction.img = url
+          vm.newObj.content.img = url
         })
       })
     },
+    //////////////////////////////////////////
+
   },
   components: {},
   mixins: [manage]
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
+@import "@/assets/css/_manage.sass"
 </style>

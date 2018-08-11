@@ -13,7 +13,7 @@ main
                 a.nav-link(v-for='i in 6')
                   .loading-text-block
               nav#einstein-menu.nav(v-else)
-                a.nav-link(href='#', :class="(e_index==currentPage)?'active':''", @click='setEinsteinCurrPage(e_index)', v-for='(e,e_index) in einstein')
+                a.nav-link(href='#', :class="(e_index==currentPage)?'active':''", @click.prevent='setEinsteinCurrPage(e_index)', v-for='(e,e_index) in einstein')
                   | {{(!language) ? e.name : e.name_en}}
 
     .content
@@ -78,6 +78,7 @@ main
                   fa.text-danger(:icon='[`fab`, `youtube`]')
                   |  Youtube
 
+
           section(v-else-if="einstein[currentPage].page == 'partnerships'", key='5')
             p.mb-5(v-html='selectTextLanguage(language, einstein[currentPage].content.content, einstein[currentPage].content.content_en)')
 
@@ -124,19 +125,9 @@ export default {
       this.currentPage = n
     },
     showModalYoutube (url) {
-      this.modalYoutubeLink = translateYoutubeLink(url)
+      this.modalYoutubeLink = this.translateYoutubeLink(url)
       $('#modal-youtube').modal('show')
     },
-    translateYoutubeLink (url) {
-      if (url == '') return ''
-      try{
-        var id = url.split('?v=')[1].split('&')[0]
-        return `https://www.youtube.com/embed/${id}`
-      }
-      catch(e){
-        return ''
-      }
-    }
   },
   mixins: [page]
 }

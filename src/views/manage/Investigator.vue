@@ -80,7 +80,7 @@
                   .col-12.form-group.input-group-sm
                     button.compact.ui.olive.button(type='submit', v-if="subPage=='add'") #[fa(icon='plus')] 新增
                     button.compact.ui.teal.button(type='submit', v-if="subPage=='edit'") #[fa(icon='edit')] 修改
-                    button.compact.ui.button(type='button', @click='initInvestigatorField()') 取消
+                    button.compact.ui.button(type='button', @click='init()') 取消
 
     // Investigator Introduction (修改介紹和圖片)
     .col-12.col-md(v-if="subPage=='introduction'")
@@ -129,12 +129,12 @@ export default {
   },
   methods: {
     clickAddInvestigator (type) {
-      this.initInvestigatorField()
+      this.init()
       this.subPage = 'add'
       this.newObj.type = type
     },
     clickEditInvestigator (type, i_index) {
-      this.initInvestigatorField()
+      this.init()
       this.subPage = 'edit'
       const ni = this.newObj  // 新investigator obj
       const i = this.investigator[type][i_index]  // 原investigator obj
@@ -142,7 +142,7 @@ export default {
       ni.i_index = i_index
       ni.content = $.extend(true,{}, i)  // 複製object
     },
-    initInvestigatorField () {
+    init () {
       this.subPage = ''
       this.newObj = {
         type: '', i_index: '',
@@ -166,7 +166,7 @@ export default {
           ref.set(list, function (e) {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
-              vm.initInvestigatorField()
+              vm.init()
             } else alert(e)
           })
           break
@@ -175,7 +175,7 @@ export default {
           ref.set(newObj.content, function (e) {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
-              vm.initInvestigatorField()
+              vm.init()
             } else alert(e)
           })
           break
@@ -239,4 +239,5 @@ export default {
 </script>
 
 <style scoped lang="sass">
+  @import "@/assets/css/_manage.sass"
 </style>

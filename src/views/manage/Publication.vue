@@ -46,7 +46,7 @@
                   .col-12.form-group.input-group-sm
                     button.compact.ui.olive.button(type='submit', v-if="subPage=='add'") #[fa(icon='plus')] 新增
                     button.compact.ui.teal.button(type='submit', v-if="subPage=='edit'") #[fa(icon='edit')] 修改
-                    button.compact.ui.button(type='button', @click='initPublicationField()') 取消
+                    button.compact.ui.button(type='button', @click='init()') 取消
 </template>
 
 <script>
@@ -67,12 +67,12 @@ export default {
   },
   methods: {
     clickAddPublication (p_index) {
-      this.initPublicationField()
+      this.init()
       this.subPage = 'add'
       this.newObj.p_index = p_index
     },
     clickEditPublication (p_index, i_index) {
-      this.initPublicationField()
+      this.init()
       this.subPage = 'edit'
       var newObj = this.newObj  // 新publication obj
       var p = this.publication[p_index].content[i_index]  // 原publication obj
@@ -80,7 +80,7 @@ export default {
       newObj.i_index = i_index
       newObj.content = $.extend(true,{}, p)  // 複製object
     },
-    initPublicationField () {
+    init () {
       this.subPage = ''
       this.newObj = { 'p_index': '', 'i_index': '', 'content': {'content': '',} }
     },
@@ -100,7 +100,7 @@ export default {
           ref.set(list, function (e) {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
-              vm.initPublicationField()
+              vm.init()
             } else alert(e)
           })
           break
@@ -109,7 +109,7 @@ export default {
           ref.set(newObj.content, function (e) {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
-              vm.initPublicationField()
+              vm.init()
             } else alert(e)
           })
           break
@@ -143,4 +143,5 @@ export default {
 </script>
 
 <style scoped lang="sass">
+@import "@/assets/css/_manage.sass"
 </style>

@@ -67,7 +67,7 @@ main
               fa.text-danger(:icon='[`fab`, `youtube`]')
               |  {{(!language) ? '影片' : 'Video'}}
             .embed-responsive.embed-responsive-16by9
-              iframe.embed-responsive-item.rounded(:src='translateYoutubeSrc(data.youtube)', allowfullscreen)
+              iframe.embed-responsive-item.rounded(:src='translateYoutubeLink(data.youtube)', allowfullscreen)
 </template>
 
 <script>
