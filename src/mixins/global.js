@@ -128,6 +128,17 @@ const globalMethods = {
       this.modalImg = img
       $('#modal-img').modal('show')
     },
+    getMemberImgLink (obj) {
+      if (obj.img == '' || !obj.img) {
+        if (obj.fbid == '' || !obj.fbid) {
+          return `img/avatar.png`
+        } else {
+          return `https://graph.facebook.com/${obj.fbid}/picture?type=large`
+        }
+      } else {
+        return obj.img
+      }
+    },
   },
 
 }

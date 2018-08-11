@@ -19,7 +19,9 @@ main
   .container-fluid.mb-5(v-if='carousel && index')
     .row.align-items-center
       .col-12.col-lg-6
-        #carousel.carousel.carousel-index.slide(data-ride='carousel')
+        carousel(:data='carousel')
+
+        //- #carousel.carousel.carousel-index.slide(data-ride='carousel')
           ol.carousel-indicators
             li(data-target='#carousel', :data-slide-to='c_index', v-for='(c, c_index) in carousel.content', :class="(c_index==0)?'active':''")
           .carousel-inner.align-items-center
@@ -98,6 +100,7 @@ main
 import { page } from '@/mixins/page.js'
 import * as config from '@/config'
 import anime from 'animejs'
+import carousel from '@/components/Carousel.vue'
 
 export default {
   data () {
@@ -168,6 +171,7 @@ export default {
     },
 
   },
+  components: { carousel },
   mixins: [page]
 }
 </script>

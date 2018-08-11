@@ -39,9 +39,7 @@ const page = {
       const vm = this
       config.dbRef.child('carousel').child(child).once('value', function(snap) {
         vm.carousel = snap.val()
-        $('#carousel').carousel({
-          interval: vm.carousel.interval,
-        })
+        $('#carousel').carousel({ interval: vm.carousel.interval })
       })
     },
     // 取得Thesis列表各項目封面圖之style

@@ -1,3 +1,7 @@
+@import "~bootstrap/scss/functions"
+@import "~bootstrap/scss/variables"
+@import "~bootstrap/scss/mixins"
+
 @import "function"
 @import "color"
 @import "semantic"
@@ -139,6 +143,27 @@ ol.ui.list
     margin-left: 1rem
     &::before
       margin-left: -2rem
+
+/*
+ * 輪播
+ */
+.carousel
+  +mx(auto)
+  max-width: 800px
+  background: $black
+  overflow: hidden
+  .carousel-indicators li
+    width: 9px
+    height: 9px
+    border-radius: 100rem
+    +mx(4px)
+  .carousel-item
+    height: 500px
+    img
+      height: 100%
+      width: 100%
+      object-fit: contain
+
 
 /*
  * 取消行動版padding

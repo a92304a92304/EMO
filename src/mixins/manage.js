@@ -25,7 +25,6 @@ const manage = {
             })
           }
         }
-
       })
     },
     checkAuth () {  // 檢查登入狀態
@@ -48,13 +47,12 @@ const manage = {
       array.forEach((val, index) => {
         if(name == val[p]) num = index
       })
-
       return num
     },
   },
   components: {
     FileProgessBar,
-  }
+  },
 }
 
 export { manage }

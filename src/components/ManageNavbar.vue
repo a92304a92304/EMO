@@ -5,7 +5,7 @@ header
       router-link.back-btn(title='返回首頁' to='/' data-toggle='tooltip' data-placement='bottom' active-class='')
         span.text-info
           fa(icon='angle-left')
-      router-link.navbar-brand(to='/manage' active-class='')
+      router-link.navbar-brand(to='/manage/index' active-class='')
         img.img-fluid.logo(src='../assets/img/logo.svg' alt='EM Optimization Lab Logo')
         span.d-none.d-lg-inline-block  Manage
       button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')

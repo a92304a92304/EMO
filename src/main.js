@@ -43,6 +43,10 @@ Vue.component('tip', Tip)
 
 //
 
+import VueCarousel from 'vue-carousel'
+Vue.use(VueCarousel)
+
+
 Vue.config.productionTip = false
 
 Vue.use(VueGoogleMaps, {

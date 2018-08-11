@@ -21,19 +21,10 @@ main
                   a(:href="'mailto:'+memberModal.email")  {{memberModal.email}}
           img.img-fluid.logo(src='../assets/img/logo.svg')
 
-  jumbotron-title(:style='setBg()')
+  jumbotron-title(:style='setBg()' style={ marginBottom: 0 })
 
   .member.mb-5(v-if='member')
-    #carousel.carousel.carousel-member.slide(data-ride='carousel', v-if='carousel')
-      ol.carousel-indicators.d-none.d-md-flex
-        li(data-target='#carousel', :data-slide-to='c_index', v-for='(c, c_index) in carousel.content', :class="(c_index==0)?'active':''")
-      .carousel-inner.align-items-center
-        .carousel-item(v-for='(c, c_index) in carousel.content', :class="(c_index==0)?'active':''")
-          img.img-fluid(:src='c', alt='Index Carousel')
-      a.carousel-control-prev(href='#carousel', role='button', data-slide='prev')
-        span.carousel-control-prev-icon(aria-hidden='true')
-      a.carousel-control-next(href='#carousel', role='button', data-slide='next')
-        span.carousel-control-next-icon(aria-hidden='true')
+    carousel(:data='carousel')
 
   loading(c='page', v-if='!member')
   .container.member(v-if='member')
@@ -77,6 +68,7 @@ main
 
 <script>
 import { page } from '@/mixins/page.js'
+import carousel from '@/components/Carousel.vue'
 
 export default {
   data () {
@@ -89,20 +81,9 @@ export default {
   mounted () {
     this.setBg()
     this.fetch('member')
-
+    this.fetchCarousel('member')
   },
   methods: {
-    getMemberImgLink (obj) {
-      if (obj.img == '' || !obj.img) {
-        if (obj.fbid == '' || !obj.fbid) {
-          return `img/avatar.png`
-        } else {
-          return `https://graph.facebook.com/${obj.fbid}/picture?type=large`
-        }
-      } else {
-        return obj.img
-      }
-    },
     translateDate (ch) {
       return ch.replace(/年/g, '/').replace(/月/g, '').replace(/至/g, ' ~ ')
     },
@@ -116,6 +97,7 @@ export default {
       $('#member-detail').modal('show')
     }
   },
+  components: { carousel },
   mixins: [page]
 }
 </script>

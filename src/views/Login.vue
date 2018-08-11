@@ -54,14 +54,14 @@ export default {
 
       promise.then(function (e) { // 登入成功
         vm.setLoginMessage('')
-        vm.$router.push('/manage')
+        vm.$router.push('/manage/index')
       })
     },
     checkAuth: function (setLoginMessage) { // [檢查登入狀態]
       const vm = this
       const unsubscribe = config.auth.onAuthStateChanged(function (user) {
         if (user) {
-          vm.$router.push('/manage')
+          vm.$router.push('/manage/index')
         } else {
           unsubscribe()  // 呼叫自己 -> 解除on事件
         }
