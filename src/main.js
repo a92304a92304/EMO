@@ -26,18 +26,22 @@ Vue.component('draggable', draggable)
 Vue.component('loading', Loading)
 Vue.component('modal-img', ModalImg)
 
-//
+// Notification
+import Notifications from 'vue-notification' // https://github.com/euvl/vue-notification/
+import velocity from 'velocity-animate'
+Vue.use(Notifications, { velocity })
 
-import AddBtn from '@/components/manage/AddBtn.vue'
+// Manage 頁面用組件
+
 import VerticalMenu from '@/components/manage/VerticalMenu.vue'
 import FormLabel from '@/components/manage/FormLabel.vue'
+import Tip from '@/components/manage/Tip.vue'
 
-Vue.component('add-btn', AddBtn)
 Vue.component('vertical-menu', VerticalMenu)
 Vue.component('form-label', FormLabel)
+Vue.component('tip', Tip)
 
 //
-
 
 Vue.config.productionTip = false
 
@@ -46,8 +50,6 @@ Vue.use(VueGoogleMaps, {
     key: 'AIzaSyBS6J7v9nG5bvbIN-mR0NhSjRdNtigemJk',
   },
 })
-
-
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || `EM Optimization Lab - NTUT`

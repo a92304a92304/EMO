@@ -1,4 +1,5 @@
 import * as config from '@/config'
+import FileProgessBar from '@/components/manage/FileProgressBar.vue'
 
 const manage = {
   data () {
@@ -6,6 +7,7 @@ const manage = {
       isLogin: null,
       subPage: ``,
       newObj: null,
+      fileProgress: null,
     }
   },
   methods: {
@@ -36,7 +38,22 @@ const manage = {
       this.subPage = value
       this.newThesisCategory = (new Date()).getFullYear() - 1
     },
+    getRandomNum : function () {
+      return (new Date()).getTime()
+    },
+    queryArray: function(array, p, name) {
+      const vm = this
+      let num = 0
+      array.forEach((val, index) => {
+        if(name == val[p]) num = index
+      })
+
+      return num
+    },
   },
+  components: {
+    FileProgessBar,
+  }
 }
 
 export { manage }

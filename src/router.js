@@ -11,7 +11,10 @@ import Contact from './views/Contact.vue'
 
 import Login from './views/Login.vue'
 import Manage from './views/manage/Manage.vue'
+
+import ManageEinstein from './views/manage/Einstein.vue'
 import ManageInvestigator from './views/manage/Investigator.vue'
+import ManagePublication from './views/manage/Publication.vue'
 
 
 
@@ -92,13 +95,22 @@ export default new Router({
       meta: { title: 'Manage - EM Optimization Lab - NTUT' },
       children: [
         {
+          path: 'einstein',
+          name: 'manage/einstein',
+          component: ManageEinstein,
+        },
+        {
           path: 'investigator',
           name: 'manage/investigator',
           component: ManageInvestigator,
         },
+        {
+          path: 'publication',
+          name: 'manage/publication',
+          component: ManagePublication,
+        },
       ],
     },
-
     // {
     //   path: '/about',
     //   name: 'about',

@@ -32,7 +32,7 @@ const page = {
             })
           }
         }
-        
+
       })
     },
     fetchCarousel (child) {
@@ -54,10 +54,6 @@ const page = {
       else
         return `/project/${category}/${id}`
     },
-    showModalImg (img) {
-      this.modalImg = img
-      $('#modal-img').modal('show')
-    }
   },
   components: {
     JumbotronTitle,

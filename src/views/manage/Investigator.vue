@@ -1,5 +1,8 @@
 <template lang="pug">
 .container(v-if="investigator")
+  file-progess-bar(:value='fileProgress')
+  modal-img(:img='modalImg')
+
   .row
     .col-12.col-md-3.mb-3
       vertical-menu(:subPages='subPages' :subPage='subPage' @c='setSubPage')
@@ -17,7 +20,7 @@
           span(v-else-if="type=='reviewer'")
             | SCI國際期刊論文審查
             small Reviewer
-          add-btn(@c='clickAddInvestigator(type)')
+          a.compact.ui.tiny.button.mx-3(title='新增' @click='clickAddInvestigator(type)') #[fa(icon='plus')]
 
         draggable(v-model='investigator[type]', @end="modifyInvestigator('sort', type, investigator[type])", :class="'ui middle aligned divided list mb-5'")
           .item.drag(v-for='(i, i_index) in investigator[type]')
@@ -29,7 +32,7 @@
                   | {{i.name}}
                   small.text-muted {{i.name_en}}
                   span.ui.tiny.label
-                    i.fas.fa-calendar-alt
+                    fa(icon='calendar-alt')
                     |  {{i.year}}
                 .col(v-if="type == 'researchProject'")
                   | {{i.content}}
@@ -38,27 +41,24 @@
                 .col(v-if="type == 'reviewer'")
                   | {{i.content}}
                   span.ui.tiny.label
-                    i.fas.fa-calendar-alt
+                    fa(icon='calendar-alt')
                     |  {{i.year}}
                 .col-auto
-                  //- +edit-and-del-btn("ClickEditInvestigator(type, i_index)", "modifyInvestigator('del', type, i_index)")
+                  a.text-info.mr-1(href='#', @click="clickEditInvestigator(type, i_index)", title='修改') #[fa(icon='edit')]
+                  a.text-danger(href='#', @click.prevent="modifyInvestigator('del', type, i_index)", title='刪除') #[fa(icon='trash')]
 
     // Add Investigator
     transition(enter-active-class='animated fadeInUp')
       .col-12.col-md(v-if="subPage=='add' || subPage=='edit'")
         .ui.segment
-          h2(v-if="subPage=='add'")
-            i.fas.fa-plus-square
-            |  Add
-          h2(v-if="subPage=='edit'")
-            i.fas.fa-edit
-            |  Edit
+          h2(v-if="subPage=='add'") Add
+          h2(v-if="subPage=='edit'") Edit
           .container-fluid
             .row
               .col-12
                 form.form-row(@submit.prevent='modifyInvestigator(subPage)')
                   .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='teaching'")
-                    form-label(ch='名稱' en='Name' :r='true' )
+                    form-label(ch='名稱' en='Name' :r='true')
                     input.form-control(type='text', maxlength='100', v-model.trim='newObj.content.name', required)
 
                   .col-12.col-md-6.form-group.input-group-sm(v-if="newObj.type=='teaching'")
@@ -78,9 +78,9 @@
                     input.form-control(type='text', maxlength='50', v-model.trim='newObj.content.year')
 
                   .col-12.form-group.input-group-sm
-                    //- +submitAddBtn()(type='submit', v-if="subPage=='add'")
-                    //- +submitEditBtn()(type='submit', v-if="subPage=='edit'")
-                    //- +cancelBtn()(type='button', @click='initInvestigatorField()')
+                    button.compact.ui.olive.button(type='submit', v-if="subPage=='add'") #[fa(icon='plus')] 新增
+                    button.compact.ui.teal.button(type='submit', v-if="subPage=='edit'") #[fa(icon='edit')] 修改
+                    button.compact.ui.button(type='button', @click='initInvestigatorField()') 取消
 
     // Investigator Introduction (修改介紹和圖片)
     .col-12.col-md(v-if="subPage=='introduction'")
@@ -88,7 +88,7 @@
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='內容' en='Content' :r='true' )
           textarea.form-control(rows='6', cols='100', v-model='investigator.introduction.content')
-          //- +br-text-tip
+          tip(t='br')
 
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='英文內容' en='Content (English)')
@@ -98,20 +98,20 @@
           form-label(ch='上傳自訂大頭照' en='Upload Avatar')
           transition(mode='out-in', enter-active-class='animated bounceIn')
             .ui.blue.image.label.mx-2(v-if="investigator.introduction.img!=''")
-              img.bg-light(:src='investigator.introduction.img', @click.prevent='ShowModalImg(investigator.introduction.img)')
+              img.bg-light(:src='investigator.introduction.img', @click.prevent='showModalImg(investigator.introduction.img)')
               | 已上傳圖片
-              a(href='#', @click="investigator.introduction.img=''")
-                i.fas.fa-times
+              a(href='#', @click="investigator.introduction.img=''")  #[fa(icon='times')]
           .custom-file
-            input.custom-file-input(type='file', accept='image/*', @change='UploadInvestigatorImg($event)')
+            input.custom-file-input(type='file', accept='image/*', @change='uploadInvestigatorImg($event)')
             label.custom-file-label Choose New File...
-            //- +file-size-tip
+            tip(t='fileSize')
 
         .col-auto.form-group.input-group-sm
-          //- +submitEditBtn()(type='button', @click="modifyInvestigator('introduction', 'introduction', investigator.introduction)")
+          button.compact.ui.teal.button(type='button', @click="modifyInvestigator('introduction', 'introduction', investigator.introduction)") #[fa(icon='edit')] 修改
 </template>
 
 <script>
+import * as config from '@/config'
 import { manage } from '@/mixins/manage.js'
 
 export default {
@@ -133,52 +133,61 @@ export default {
       this.subPage = 'add'
       this.newObj.type = type
     },
-    initInvestigatorField : function () {
+    clickEditInvestigator (type, i_index) {
+      this.initInvestigatorField()
+      this.subPage = 'edit'
+      const ni = this.newObj  // 新investigator obj
+      const i = this.investigator[type][i_index]  // 原investigator obj
+      ni.type = type
+      ni.i_index = i_index
+      ni.content = $.extend(true,{}, i)  // 複製object
+    },
+    initInvestigatorField () {
       this.subPage = ''
       this.newObj = {
         type: '', i_index: '',
         content: { name: '', name_en: '', content: '', content_en: '', year: '',}
       }
     },
-
     modifyInvestigator (opertaion, type, data) {
       const vm = this
-      var list = []
-      var newObj = this.newObj
-      var ref = dbRef.child('investigator/' + type)
+      const dbRef = config.dbRef
+      let list = []
+      let newObj = this.newObj
+      let ref = dbRef.child('investigator/' + type)
 
       switch (opertaion) {
         case 'add':
-          var ref = dbRef.child('investigator/' + newObj.type)
+          ref = dbRef.child('investigator/' + newObj.type)
           ref.on('value', function(snap) {
             list = (snap.val()) ? snap.val() : []
           })
           list.unshift(newObj.content)
           ref.set(list, function (e) {
             if (!e) {
-              vm.ShowSnackbar(`${SUCCESS_ICON} 成功新增`)
-              vm.InitInvestigatorField()
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
+              vm.initInvestigatorField()
             } else alert(e)
           })
           break
         case 'edit':
-          var ref = dbRef.child('investigator/' + newObj.type + '/' + newObj.i_index)
+          ref = dbRef.child('investigator/' + newObj.type + '/' + newObj.i_index)
           ref.set(newObj.content, function (e) {
             if (!e) {
-              vm.ShowSnackbar(`${SUCCESS_ICON} 成功修改`)
-              vm.InitInvestigatorField()
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
+              vm.initInvestigatorField()
             } else alert(e)
           })
           break
         case 'del':
-          if(confirm(CONFIRM_MSG)){
+          if(confirm(config.CONFIRM_MSG)){
             ref.on('value', function(snap) {
               list = (snap.val()) ? snap.val() : []
             })
             list.splice(data, 1)
             ref.set(list, function (e) {
               if (!e) {
-                vm.ShowSnackbar(`${SUCCESS_ICON} 成功移除`)
+                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功移除' })
               } else alert(e)
             })
           }
@@ -187,27 +196,47 @@ export default {
           list = data
           ref.set(list, function (e) {
             if (!e) {
-              vm.ShowSnackbar(`${SUCCESS_ICON} 已重新排序`)
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 已重新排序' })
             } else alert(e)
           })
           break
         case 'introduction':
           ref.set(data, function (e) {
             if (!e) {
-              vm.ShowSnackbar(`${SUCCESS_ICON} 成功修改`)
+              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
+
             } else alert(e)
           })
           break
         default:
       }
     },
+    uploadInvestigatorImg (evt) {
+      const vm = this
+      var file = evt.target.files[0]
+      var fileName = this.getRandomNum().toString()
+      var uploadTask = config.storageRef.child('investigator/'+ fileName).put(file)
+
+      if(evt.target.files[0].size > config.MAX_FILE_SIZE){
+        vm.$notify({ group: 'snackbar', type: 'error', title: config.FILE_SIZE_MSG })
+        return
+      }
+
+      uploadTask.on('state_changed',(snap) => {
+        vm.fileProgress = ((snap.bytesTransferred / snap.totalBytes) * 100).toFixed(1)
+      })
+      uploadTask.then((snap) => {
+        vm.fileProgress = null
+        snap.ref.getDownloadURL().then((url) => {
+          vm.investigator.introduction.img = url
+        })
+      })
+    },
   },
-  components: {
-  },
+  components: {},
   mixins: [manage]
 }
 </script>
 
 <style scoped lang="sass">
-@import "@/assets/css/_manage.sass"
 </style>

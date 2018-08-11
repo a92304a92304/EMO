@@ -3,6 +3,7 @@ import * as config from '@/config'
 const globalMethods = {
   data () {
     return {
+      modalImg: null,
       pages: [
         {
           'id': 0,
@@ -122,8 +123,13 @@ const globalMethods = {
     getYear () {
       const year = (new Date()).getFullYear()
       return (year > 2018) ? `2018-${year}` : '2018'
-    }
+    },
+    showModalImg (img) {
+      this.modalImg = img
+      $('#modal-img').modal('show')
+    },
   },
+
 }
 
 export { globalMethods }
