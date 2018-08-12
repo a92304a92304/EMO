@@ -25,6 +25,7 @@ config = {
 
 firebase.initializeApp(config)
 
+export { config }
 export const auth = firebase.auth()
 export const dbRef = firebase.database().ref()
 export const storageRef = firebase.storage().ref()
@@ -32,6 +33,6 @@ export const storageRef = firebase.storage().ref()
 //
 
 export const CONFIRM_MSG = '是否確定刪除項目? 此動作無法復原。'
-export const WAITING_UPLOAD_MSG = '<i class="fas fa-clock text-warning"></i> 等待上傳作業完成'
+export const WAITING_UPLOAD_MSG = '✗ 等待上傳作業完成'
 export const FILE_SIZE_MSG = `✗ 圖片大小必須小於500KB`
 export const MAX_FILE_SIZE = 500 * 1000

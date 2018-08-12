@@ -21,20 +21,11 @@ main
       .col-12.col-lg-6
         carousel(:data='carousel')
 
-        //- #carousel.carousel.carousel-index.slide(data-ride='carousel')
-          ol.carousel-indicators
-            li(data-target='#carousel', :data-slide-to='c_index', v-for='(c, c_index) in carousel.content', :class="(c_index==0)?'active':''")
-          .carousel-inner.align-items-center
-            .carousel-item(v-for='(c, c_index) in carousel.content', :class="(c_index==0)?'active':''")
-              img.img-fluid.w-100(:src='c', alt='Index Carousel')
-          a.carousel-control-prev(href='#carousel', role='button', data-slide='prev')
-            span.carousel-control-prev-icon(aria-hidden='true')
-          a.carousel-control-next(href='#carousel', role='button', data-slide='next')
-            span.carousel-control-next-icon(aria-hidden='true')
       .col-12.col-lg
         .px-0.px-lg-5.mt-3.mt-lg-0
           p(v-html='index.introduction.content', v-if='!language')
           p(v-html='index.introduction.content_en', v-else)
+
   loading(c='page', s='margin-top:5rem', v-else)
   .py-3(style='background:#eee')
     .container.my-3(v-if='index', v-cloak)
@@ -54,7 +45,7 @@ main
                           | {{(!language) ? r.name : r.name_en}}
                           i.fas.fa-angle-right
                       .col-12.col-md-3(v-if="r.img!=''")
-                        a.mr-0.mr-md-3.d-block(target='_blank')
+                        .mr-0.mr-md-3.d-block
                           img.img-fluid.rounded(:src='r.img')
                       .col-12.col-md
                         p.my-0.text-left(v-html='(!language) ? r.content : r.content_en')

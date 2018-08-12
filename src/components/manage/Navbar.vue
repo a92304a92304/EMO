@@ -6,11 +6,11 @@ header
         span.text-info
           fa(icon='angle-left')
       router-link.navbar-brand(to='/manage/index' active-class='')
-        img.img-fluid.logo(src='../assets/img/logo.svg' alt='EM Optimization Lab Logo')
+        img.img-fluid.logo(src='../../assets/img/logo.svg' alt='EM Optimization Lab Logo')
         span.d-none.d-lg-inline-block  Manage
-      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#manageNavbarCollapse')
         span.navbar-toggler-icon
-      #navbarCollapse.collapse.navbar-collapse(style='float:right;')
+      #manageNavbarCollapse.collapse.navbar-collapse(style='float:right;')
         ul.navbar-nav.ml-auto(v-cloak)
           li.nav-item.d-flex.align-items-center(v-for='p in pages')
             router-link.nav-link.text-center(:to='`/manage/${p.page}`')
@@ -43,6 +43,11 @@ export default {
     },
   },
   watch:{
+    // 當路由切換時，折疊手機版的漢堡選單，回到頁面頂端
+    $route (to, from){
+      $('#manageNavbarCollapse').collapse('hide')
+      window.scrollTo(0,0)
+    }
   },
   mixins: [manage]
 }

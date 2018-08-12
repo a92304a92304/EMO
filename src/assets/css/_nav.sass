@@ -18,8 +18,12 @@
   .nav-item
     a.nav-link
       line-height: 18px
-  .active
-    border-bottom: 2px solid white
+      transition: all .2s
+      border-bottom: 2px solid rgba(white, 0)
+
+      &.active
+        border-bottom: 2px solid white
+
   a.nav-link:hover
     cursor: pointer
   ul
@@ -51,8 +55,8 @@
         display: inline-block
         max-width: 170px
         font-size: 1.25rem
-    .nav-item.active
-      border-bottom: 0px solid white
+    .active
+      border-bottom: 0
 
 .navbar-toggler
   border: 0 solid black

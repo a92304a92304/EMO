@@ -16,7 +16,8 @@ import ManageIndex from './views/manage/Index.vue'
 import ManageEinstein from './views/manage/Einstein.vue'
 import ManageInvestigator from './views/manage/Investigator.vue'
 import ManagePublication from './views/manage/Publication.vue'
-
+import ManageThesis from './views/manage/Thesis.vue'
+import ManageProject from './views/manage/Thesis.vue'
 import ManageMember from './views/manage/Member.vue'
 import ManageContact from './views/manage/Contact.vue'
 
@@ -116,6 +117,16 @@ export default new Router({
           path: 'publication',
           name: 'manage/publication',
           component: ManagePublication,
+        },
+        {
+          path: 'thesis',
+          name: 'manage/thesis',
+          component: ManageThesis,
+        },
+        {
+          path: 'project',
+          name: 'manage/project',
+          component: ManageProject,
         },
         {
           path: 'member',

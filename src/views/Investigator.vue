@@ -8,7 +8,7 @@ main
         img.img-fluid.rounded(:src='investigator.introduction.img')
         h2.mt-3.mr-3.d-inline-block(style={fontWeight: `bold`}) {{(!language)?'陳晏笙':'Yen-Sheng Chen'}}
         h4.d-inline-block(style={fontWeight: 400}) {{(!language)?'博士':'PI'}}
-      .col-12.col-md-8
+      .col-12.col-md-8.mobile-no-padding
         .ui.padded.segment.sr
           p(v-html='selectTextLanguage(language, investigator.introduction.content, investigator.introduction.content_en)')
 

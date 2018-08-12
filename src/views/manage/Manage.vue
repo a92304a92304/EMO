@@ -1,12 +1,14 @@
 <template lang="pug">
 .manage
-  ManageNavbar
+  Navbar
   router-view(style=`margin-top: 6rem`)
+  Footer
   notifications(group='snackbar' position='bottom right' animation-type='velocity' :max='5')
 </template>
 
 <script>
-import ManageNavbar from '@/components/ManageNavbar.vue'
+import Navbar from '@/components/manage/Navbar.vue'
+import Footer from '@/components/manage/Footer.vue'
 export default {
   data () {
     return {
@@ -18,7 +20,8 @@ export default {
   methods: {
   },
   components: {
-    ManageNavbar
+    Navbar,
+    Footer,
   }
 }
 </script>

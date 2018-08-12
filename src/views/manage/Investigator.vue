@@ -10,7 +10,7 @@
     // Investigator List
     .col-12.col-md(v-if="subPage==''")
       template(v-for="type in ['teaching', 'researchProject', 'reviewer']")
-        h2.sticky-top(style='background:white;')
+        h2(style='background:white;')
           span(v-if="type=='teaching'")
             | 教學課程
             small Teaching
