@@ -16,8 +16,6 @@ span
 
 <script>
 export default {
-  computed: {
-  },
   props: [`t`]
 }
 </script>

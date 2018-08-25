@@ -19,21 +19,16 @@ main
     .content
       // Loader
       .container(v-if='!einstein')
-        h2.subtitle.no-underline.mt-0(style={borderWidth: 0})
-          .loading-text-block
+        h2.subtitle.no-underline.mt-0(style={borderWidth: 0}) #[.loading-text-block]
         section
           .row
             .col-12.col-md-12
-              p
-                .loading-text-block
-                .loading-text-block
-                .loading-text-block(style={width: `80%`})
+              p #[.loading-text-block(v-for='i in 3' :style='{width: (i == 3) ? `80%`: `100%`}')]
 
       .container(v-else)
-        h2.subtitle.mt-0
-          | {{(!language) ? einstein[currentPage].name : einstein[currentPage].name_en}}
+        h2.subtitle.mt-0 {{(!language) ? einstein[currentPage].name : einstein[currentPage].name_en}}
 
-        transition(mode='out-in' name='fadeMove' )
+        transition(mode='out-in' name='fadeMove')
           section(v-if="einstein[currentPage].page == 'purpose'", key='0')
             .row
               .col-12.col-md-12(v-for='i in einstein[currentPage].content')
@@ -60,12 +55,14 @@ main
                 .col-12.col-lg-9.order-2.order-lg-1
                   h5
                     a(:href='i.link', target='_blank', v-html='selectTextLanguage(language, i.title, i.title_en)')
-                  p(v-html='selectTextLanguage(language, i.content, i.content_en)') .
-                  a.ui.label(v-if="translateYoutubeLink(i.youtube) != ''", @click='showModalYoutube(i.youtube)')
+                  p(v-html='selectTextLanguage(language, i.content, i.content_en)')
+                  a.ui.label(v-if="i.attachment" :href='i.attachment' target='_blank') #[fa(icon='file-pdf')]
+                  a.ui.label(v-if="translateYoutubeLink(i.youtube) != ''" @click='showModalYoutube(i.youtube)')
                     fa.text-danger(:icon='[`fab`, `youtube`]')
                     |  Youtube
                 .col-12.col-lg-3.mb-3.order-1.order-lg-2
                   img.img-fluid.figure.m-0(:src='i.img')
+
               hr
 
           section(v-else-if="einstein[currentPage].page == 'press'", key='4')

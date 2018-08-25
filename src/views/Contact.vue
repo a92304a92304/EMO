@@ -10,7 +10,7 @@ main
         p.text-center
           span.ui.label.mr-2(v-for='item in contact.investigator.content')
             i.fas.fa-envelope(:class="'fa-'+item.icon")
-            |           {{selectTextLanguage(language, item.name, item.name_en)}}
+            |  {{selectTextLanguage(language, item.name, item.name_en)}}
             span.detail(v-html='selectTextLanguage(language, item.content, item.content_en)')
     hr
     .row

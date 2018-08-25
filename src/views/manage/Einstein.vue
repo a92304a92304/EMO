@@ -91,6 +91,7 @@
                   .col-12.col-md-12.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press'")
                     form-label(ch='連結' en='Link')
                     input.form-control(type='text', maxlength='300', v-model.trim='newObj.content.link')
+                    small.form-text #[code http://] 或 #[code https://] 開頭
 
                   .col-12.form-group.input-group-sm(v-if="!(newObj.type=='press')")
                     form-label(ch='內容' en='Content')
@@ -115,9 +116,22 @@
                           a(href='#', @click.prevent="newObj.content.img=''") #[fa(icon='times')]
                         .ui.basic.grey.label.mx-2.mb-2(v-else) no image
                     .custom-file
-                      input.custom-file-input(type='file', accept='image/*', @change="uploadEinsteinImg($event,'cover')")
+                      input.custom-file-input(type='file', accept='image/*', @change="uploadEinsteinImg($event)")
                       label.custom-file-label Choose New File...
                       tip(t='fileSize')
+
+                  .col-12.form-group.input-group-sm(v-if="newObj.type=='demonstration'")
+                    label #[fa(icon='file-pdf')] 附加檔案 #[small Attachment]
+                    div
+                      transition(mode='out-in', enter-active-class='animated bounceIn')
+                        .ui.blue.image.label.mx-2.mb-2(v-if="newObj.content.attachment!=''")
+                          a(:href='newObj.content.attachment' target='_blank') #[fa(icon='file-pdf')]
+                          |  已上傳
+                          a(href='#', @click.prevent="newObj.content.attachment=''") #[fa(icon='times')]
+                        .ui.basic.grey.label.mx-2.mb-2(v-else) no file
+                    .custom-file
+                      input.custom-file-input(type='file' accept='application/pdf' @change="uploadEinsteinAttachment($event,'cover')")
+                      label.custom-file-label Choose New File...
 
                   .col-12.col-md-12.form-group.input-group-sm
                     button.compact.ui.olive.button(type='submit', v-if="subPage=='add'") #[fa(icon='plus')] 新增
@@ -147,7 +161,7 @@ export default {
     this.fetch(`einstein`)
   },
   methods: {
-    modifyEinstein: function (opertaion, type, data) {
+    modifyEinstein (opertaion, type, data) {
       const vm = this
       const dbRef = config.dbRef
       var list = []
@@ -161,7 +175,7 @@ export default {
             list = (snap.val()) ? snap.val() : []
           })
           list.push(newObj.content)
-          ref.set(list, function (e) {
+          ref.set(list, (e) => {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
               vm.init()
@@ -172,14 +186,13 @@ export default {
           if(type == 'partnerships'){ // 針對Partnerships修改content
             var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', 'partnerships') + '/content/')
 
-            ref.set(data, function (e) {
-              if (!e) {
-                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
-              } else alert(e)
+            ref.set(data, (e) => {
+              if (!e) vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
+              else alert(e)
             })
           }else{
             var ref = dbRef.child('einstein/' + vm.queryArray(vm.einstein, 'page', newObj.type) + '/content/' + newObj.i_index)
-            ref.set(newObj.content, function (e) {
+            ref.set(newObj.content, (e) => {
               if (!e) {
                 vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功修改' })
                 vm.init()
@@ -193,25 +206,23 @@ export default {
               list = (snap.val()) ? snap.val() : []
             })
             list.splice(data, 1)
-            ref.set(list, function (e) {
-              if (!e) {
-                vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功移除' })
-              } else alert(e)
+            ref.set(list, (e) => {
+              if (!e) vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功移除' })
+              else alert(e)
             })
           }
           break
         case 'sort':
           list = data
-          ref.set(list, function (e) {
-            if (!e) {
-              vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 已重新排序' })
-            } else alert(e)
+          ref.set(list, (e) => {
+            if (!e) vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 已重新排序' })
+            else alert(e)
           })
           break
         default:
       }
     },
-    uploadEinsteinLogo: function (evt) {
+    uploadEinsteinLogo (evt) {
       const vm = this
       var file = evt.target.files[0]
       var fileName = this.getRandomNum().toString()
@@ -232,7 +243,7 @@ export default {
         })
       })
     },
-    modifyEinsteinLogo: function (opertaion, data) {
+    modifyEinsteinLogo (opertaion, data) {
       const vm = this
       const dbRef = config.dbRef
       var list = []
@@ -245,7 +256,7 @@ export default {
             list = (snap.val()) ? snap.val() : []
           })
           list.push(data)
-          ref.set(list, function (e) {
+          ref.set(list, (e) => {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
             } else alert(e)
@@ -257,7 +268,7 @@ export default {
               list = (snap.val()) ? snap.val() : []
             })
             list.splice(data, 1)
-            ref.set(list, function (e) {
+            ref.set(list, (e) => {
               if (!e) {
                 vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功移除' })
               } else alert(e)
@@ -266,7 +277,7 @@ export default {
           break
         case 'sort':
           list = data
-          ref.set(list, function (e) {
+          ref.set(list, (e) => {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 已重新排序' })
             } else alert(e)
@@ -275,12 +286,12 @@ export default {
         default:
       }
     },
-    clickAddEinstein : function (type) {
+    clickAddEinstein (type) {
       this.init()
       this.subPage = 'add'
       this.newObj.type = type
     },
-    clickEditEinstein : function (type, i_index) {
+    clickEditEinstein (type, i_index) {
       this.init()
       this.subPage = 'edit'
       var newObj = this.newObj  // 新index obj
@@ -289,7 +300,7 @@ export default {
       newObj.i_index = i_index
       newObj.content = $.extend(true,{}, i)  // 複製object
     },
-    init : function () {
+    init () {
       this.subPage = (this.newObj) ? this.newObj.type : 'purpose'
       this.newObj = {
         type: '', i_index: '',
@@ -297,14 +308,14 @@ export default {
       }
       this.newObj = {
         type: '', i_index: '',
-        content: {img: ''}
+        content: {img: '', attachment: ''}
       }
     },
-    uploadEinsteinImg: function (evt) {
+    uploadEinsteinImg (evt) {
       const vm = this
-      var file = evt.target.files[0]
-      var fileName = this.getRandomNum().toString()
-      var uploadTask = config.storageRef.child('einstein/' + fileName).put(file)
+      const file = evt.target.files[0]
+      const fileName = this.getRandomNum().toString()
+      const uploadTask = config.storageRef.child('einstein/' + fileName).put(file)
 
       if(evt.target.files[0].size >  config.MAX_FILE_SIZE){
         vm.$notify({ group: 'snackbar', type: 'error', title: config.FILE_SIZE_MSG })
@@ -322,8 +333,20 @@ export default {
         })
       })
     },
-    //////////////////////////////////////////
+    uploadEinsteinAttachment (evt) {
+      const vm = this
+      const file = evt.target.files[0]
+      const fileName = this.getRandomNum().toString()
+      const uploadTask = config.storageRef.child('einstein/' + fileName).put(file)
 
+      uploadTask.on('state_changed', (snap) => {
+        vm.fileProgress = ((snap.bytesTransferred / snap.totalBytes) * 100).toFixed(1)
+      })
+      uploadTask.then((snap) => {
+        vm.fileProgress = null
+        snap.ref.getDownloadURL().then((url) => vm.newObj.content.attachment = url)
+      })
+    },
   },
   components: {},
   mixins: [manage]
