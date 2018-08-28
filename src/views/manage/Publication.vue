@@ -35,8 +35,8 @@
                     label Category ID
                     input.form-control(type='text', v-model='newObj.p_index', readonly='')
                   .col-12.col-md-12.form-group.input-group-sm
-                    form-label(ch='內容' en='Content' :r='true' )
-                    textarea.form-control(rows='4', cols='100', v-model='newObj.content.content', required)
+                    form-label(ch='內容' en='Content' :r='true')
+                    VueEditor(v-model='newObj.content.content' :editorToolbar='customToolbar' required)
                     tip(t='em')
 
                   .col-12.col-md-12.form-group.input-group-sm
@@ -89,6 +89,8 @@ export default {
       var list = []
       var newObj = this.newObj
       var ref = config.dbRef.child('publication/' + p_index + '/content/')
+
+      newObj.content.content = this.replacePTag(newObj.content.content)
 
       switch (opertaion) {
         case 'add':

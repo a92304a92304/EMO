@@ -31,11 +31,11 @@
                   span(style='vertical-align: bottom') {{i_index+1}}.
                 .col(v-if="type == 'research'")
                   | {{i.name}}
-                  small.text-muted {{i.name_en}}
+                  small.text-muted {{ i.name_en }}
                 .col(v-if="type == 'events'")
                   | {{i.content}}
                   br
-                  small.text-muted {{i.content_en}}
+                  small.text-muted(v-html='i.content_en')
                 .col-auto
                   a.text-info.mr-1(href='#', @click.prevent="clickEditIndex(type, i_index)", title='修改') #[fa(icon='edit')]
                   a.text-danger(href='#', @click.prevent="modifyIndex('del', type, i_index)", title='刪除') #[fa(icon='trash')]
@@ -60,11 +60,11 @@
 
                   .col-12.col-md-12.form-group.input-group-sm
                     form-label(ch='內容' en='Content' :r='true')
-                    textarea.form-control(rows='4', cols='100', v-model.trim='newObj.content.content', required)
+                    VueEditor(v-model='newObj.content.content' :editorToolbar='customToolbar' required)
 
                   .col-12.col-md-12.form-group.input-group-sm
                     form-label(ch='英文內容' en='Content (English)')
-                    textarea.form-control(rows='4', cols='100', v-model.trim='newObj.content.content_en')
+                    VueEditor(v-model='newObj.content.content_en' :editorToolbar='customToolbar')
 
                   .col-12.col-md-12.form-group.input-group-sm(v-if="newObj.type=='research'")
                     label #[fa(icon='image')] 圖片 #[small Image]
@@ -88,14 +88,16 @@
     // Index Introduction
     .col-12.col-md(v-if="subPage=='introduction'")
       .form-row.align-items-end
+        .col-12
+
+
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='內容' en='Content')
-          textarea#index-introduction.form-control(rows='6', cols='100', v-model='index.introduction.content')
-          tip(t='br')
+          VueEditor(v-model='index.introduction.content' :editorToolbar='customToolbar')
 
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='英文內容' en='Content (English)')
-          textarea#index-introduction-en.form-control(rows='6', cols='100', v-model='index.introduction.content_en')
+          VueEditor(v-model='index.introduction.content_en' :editorToolbar='customToolbar')
 
         .col-auto.form-group.input-group-sm
           button.compact.ui.teal.button(type='button', @click.prevent="modifyIndex('introduction', 'introduction', index.introduction)") #[fa(icon='edit')] 修改
@@ -128,6 +130,11 @@ export default {
       var newObj = this.newObj
       var ref = dbRef.child('index/' + type)
 
+      if(newObj.type == `events`) {
+        newObj.content.content = this.replacePTag(newObj.content.content)
+        newObj.content.content_en = this.replacePTag(newObj.content.content_en)
+      }
+      
       switch (opertaion) {
         case 'add':
           var ref = dbRef.child('index/' + newObj.type)

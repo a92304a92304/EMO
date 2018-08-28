@@ -56,8 +56,7 @@ main
           .ui.olive.segment
             .ui.relaxed.divided.list
               .item(v-for='e in index.events')
-                .content.my-3
-                  p.text-left(style='line-height:1.8rem') {{(!language) ? e.content : e.content_en}}
+                .content.my-3(v-html='(!language) ? e.content : e.content_en' style='line-height: 2rem')
   .container.my-5.py-3.d-none.d-md-block
     .row.quick
       .col-12.col-md-6

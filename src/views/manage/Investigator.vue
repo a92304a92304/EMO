@@ -67,11 +67,11 @@
 
                   .col-12.col-md-12.form-group.input-group-sm
                     form-label(ch='內容' en='Content')
-                    textarea.form-control(rows='4', cols='100', v-model.trim='newObj.content.content')
+                    VueEditor(v-model='newObj.content.content' :editorToolbar='customToolbar')
 
                   .col-12.col-md-12.form-group.input-group-sm(v-if="newObj.type!='reviewer'")
                     form-label(ch='英文內容' en='Content (English)')
-                    textarea.form-control(rows='4', cols='100', v-model.trim='newObj.content.content_en')
+                    VueEditor(v-model='newObj.content.content_en' :editorToolbar='customToolbar')
 
                   .col-12.col-md-12.form-group.input-group-sm(v-if="newObj.type!='researchProject'")
                     form-label(ch='年份' en='Year')
@@ -87,12 +87,11 @@
       .form-row.align-items-end
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='內容' en='Content' :r='true' )
-          textarea.form-control(rows='6', cols='100', v-model='investigator.introduction.content')
-          tip(t='br')
+          VueEditor(v-model='investigator.introduction.content' :editorToolbar='customToolbar')
 
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='英文內容' en='Content (English)')
-          textarea.form-control(rows='6', cols='100', v-model='investigator.introduction.content_en', placeholder='<同中文>')
+          VueEditor(v-model='investigator.introduction.content_en' :editorToolbar='customToolbar' placeholder='<同中文>')
 
         .col-12.form-group.input-group-sm
           form-label(ch='上傳自訂大頭照' en='Upload Avatar')

@@ -78,12 +78,11 @@
 
                   .col-12.form-group.input-group-sm
                     form-label(ch='摘要' en='Content' :r='true')
-                    textarea.form-control(rows='8', cols='100', required, v-model='newObj.content.content')
-                    tip(t='br')
+                    VueEditor(v-model='newObj.content.content' :editorToolbar='customToolbar' required)
 
                   .col-12.form-group.input-group-sm
                     form-label(ch='英文摘要' en='Content (English)')
-                    textarea.form-control(rows='8', cols='100', v-model='newObj.content.content_en')
+                    VueEditor(v-model='newObj.content.content_en' :editorToolbar='customToolbar')
 
                   .col-12.col-md-12.form-group.input-group-sm
                     label #[fa(:icon='[`fab`, `youtube`]')] Youtube Link

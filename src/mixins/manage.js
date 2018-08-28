@@ -1,6 +1,7 @@
 import * as config from '@/config'
 import FileProgessBar from '@/components/manage/FileProgressBar.vue'
 import randomString from 'random-base64-string'
+import { VueEditor } from 'vue2-editor'
 
 const manage = {
   data () {
@@ -9,6 +10,9 @@ const manage = {
       subPage: ``,
       newObj: null,
       fileProgress: null,
+      customToolbar: [
+        ['bold', 'italic', 'underline', 'link'],
+      ],
     }
   },
   methods: {
@@ -49,9 +53,13 @@ const manage = {
       })
       return num
     },
+    replacePTag (text) {
+      return text.replace(/<p>/g, ``).replace(/<\/p>/g, ``)
+    },
   },
   components: {
     FileProgessBar,
+    VueEditor,
   },
 }
 

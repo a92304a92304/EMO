@@ -34,12 +34,11 @@
       .form-row.align-items-end
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='內容' en='Content')
-          textarea.form-control(rows='5', cols='100', v-model="einstein[queryArray(einstein, 'page', subPage)].content.content")
-          tip(t='br')
+          VueEditor(v-model=`einstein[queryArray(einstein, 'page', subPage)].content.content` :editorToolbar='customToolbar')
 
         .col-12.col-md-12.form-group.input-group-sm
           form-label(ch='英文內容' en='Content (English)')
-          textarea.form-control(rows='5', cols='100', v-model="einstein[queryArray(einstein, 'page', subPage)].content.content_en", placeholder='<同中文>')
+          VueEditor(v-model=`einstein[queryArray(einstein, 'page', subPage)].content.content_en` :editorToolbar='customToolbar' placeholder='<同中文>')
 
         .col-auto.form-group.input-group-sm
           button.compact.ui.teal.button(type='button', @click="modifyEinstein('edit', 'partnerships', einstein[queryArray(einstein, 'page', subPage)].content)") #[fa(icon='edit')] 修改
@@ -95,12 +94,11 @@
 
                   .col-12.form-group.input-group-sm(v-if="!(newObj.type=='press')")
                     form-label(ch='內容' en='Content')
-                    textarea.form-control(rows='5', cols='100', v-model='newObj.content.content')
-                    tip(t='br')
+                    VueEditor(v-model='newObj.content.content' :editorToolbar='customToolbar')
 
                   .col-12.form-group.input-group-sm(v-if="!(newObj.type=='press')")
                     form-label(ch='英文內容' en='Content (English)')
-                    textarea.form-control(rows='5', cols='100', v-model='newObj.content.content_en', placeholder='<同中文>')
+                    VueEditor(v-model='newObj.content.content_en' :editorToolbar='customToolbar' placeholder='<同中文>')
 
                   .col-12.form-group.input-group-sm(v-if="newObj.type=='demonstration' || newObj.type=='press'")
                     label #[fa(:icon='[`fab`, `youtube`]')] Youtube Link
