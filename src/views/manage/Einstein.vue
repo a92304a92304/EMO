@@ -24,9 +24,9 @@
               h5(v-if="subPage=='demonstration' || subPage=='press' || subPage=='equipment'" ) {{i.title}}
               p.ellipsis(v-if="subPage!='press'") {{i.content}}
               span(v-if="subPage=='press'") {{i.source}} | {{i.date}}
-            .col-auto.order-2.order-md-3
-              a.text-info.mr-1(href='#', @click="clickEditEinstein(subPage, i_index)", title='修改') #[fa(icon='edit')]
-              a.text-danger(href='#', @click.prevent="modifyEinstein('del', subPage, i_index)", title='刪除') #[fa(icon='trash')]
+            .col-auto.order-2.order-md-3.edit-del-btn
+              a.mr-1(href='#', @click="clickEditEinstein(subPage, i_index)", title='修改') #[fa(icon='edit')]
+              a(href='#', @click.prevent="modifyEinstein('del', subPage, i_index)", title='刪除') #[fa(icon='times')]
 
 
     // Partnerships List

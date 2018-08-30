@@ -17,9 +17,9 @@
                 .col
                   strong {{i_index+1}}.
                   span(v-html='i.content')
-                .col-auto
-                  a.text-info.mr-1(href='#', @click="clickEditPublication(p_index, i_index)", title='修改') #[fa(icon='edit')]
-                  a.text-danger(href='#', @click.prevent="modifyPublication('del', p_index, i_index)", title='刪除') #[fa(icon='trash')]
+                .col-auto.edit-del-btn
+                  a.mr-1(href='#', @click="clickEditPublication(p_index, i_index)", title='修改') #[fa(icon='edit')]
+                  a(href='#', @click.prevent="modifyPublication('del', p_index, i_index)", title='刪除') #[fa(icon='times')]
 
     // Add Publication
     transition(enter-active-class='animated fadeInUp')

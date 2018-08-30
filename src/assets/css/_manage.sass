@@ -2,12 +2,12 @@
   p
     font-size: .9rem
     line-height: 1.5rem
-    
+
   .drag
     transition: background-color .2s
     &:hover
       cursor: move
-      background-color: $gray-transucent
+      background-color: $gray-100
   .pointer
     &:hover
       cursor: poniter
@@ -67,3 +67,20 @@
       bottom: 0
       right: 0
       padding: 0 5px
+
+
+// 當 hover 時才顯示編輯/刪除按鈕
+.drag
+  .edit-del-btn
+    opacity: 0
+    transition: all .2s
+    a
+      color: $gray-600
+  &:hover
+    .edit-del-btn
+      opacity: 1
+
+@media (max-width: 992px)
+  .drag
+    .edit-del-btn
+      opacity: 1

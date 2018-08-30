@@ -23,6 +23,15 @@ config = {
   messagingSenderId: "485365432611"
 }
 
+config = {
+  apiKey: "AIzaSyCu_nOlhf8dFTsnVNn3Bby_BLXmjnPmXL8",
+  authDomain: "ntut-emo.firebaseapp.com",
+  databaseURL: "https://ntut-emo.firebaseio.com",
+  projectId: "ntut-emo",
+  storageBucket: "ntut-emo.appspot.com",
+  messagingSenderId: "536584292025"
+}
+
 firebase.initializeApp(config)
 
 export { config }

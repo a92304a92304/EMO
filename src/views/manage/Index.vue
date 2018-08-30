@@ -36,9 +36,9 @@
                   | {{i.content}}
                   br
                   small.text-muted(v-html='i.content_en')
-                .col-auto
-                  a.text-info.mr-1(href='#', @click.prevent="clickEditIndex(type, i_index)", title='修改') #[fa(icon='edit')]
-                  a.text-danger(href='#', @click.prevent="modifyIndex('del', type, i_index)", title='刪除') #[fa(icon='trash')]
+                .col-auto.edit-del-btn
+                  a.mr-1(href='#', @click.prevent="clickEditIndex(type, i_index)", title='修改') #[fa(icon='edit')]
+                  a(href='#', @click.prevent="modifyIndex('del', type, i_index)", title='刪除') #[fa(icon='times')]
 
     // Add Index
     transition(enter-active-class='animated fadeInUp')
@@ -134,7 +134,7 @@ export default {
         newObj.content.content = this.replacePTag(newObj.content.content)
         newObj.content.content_en = this.replacePTag(newObj.content.content_en)
       }
-      
+
       switch (opertaion) {
         case 'add':
           var ref = dbRef.child('index/' + newObj.type)

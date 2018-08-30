@@ -36,11 +36,11 @@
                       span.ui.tiny.label(v-if="(m.grade) ? m.grade!='' : 0") #[fa(icon='graduation-cap')] {{m.grade}}
                       span.ui.tiny.label(v-if="(m.email) ? m.email!='' : 0") #[fa(icon='envelope')] {{m.email}}
 
-                  .col-auto
+                  .col-auto.edit-del-btn
                     template(v-if="type!='investigator'")
-                      a.text-info.mr-1(href='#', @click="clickEditMember(type, c_index, m_index)", title='修改') #[fa(icon='edit')]
-                      a.text-danger(href='#', @click.prevent="modifyMember('del', type, c_index, m_index)", title='刪除') #[fa(icon='trash')]
-                    a.text-info.mr-1(href='#', @click="clickEditMember(type, c_index, m_index)", title='修改' v-else) #[fa(icon='edit')]
+                      a.mr-1(href='#', @click="clickEditMember(type, c_index, m_index)", title='修改') #[fa(icon='edit')]
+                      a(href='#', @click.prevent="modifyMember('del', type, c_index, m_index)", title='刪除') #[fa(icon='times')]
+                    a.mr-1(href='#', @click="clickEditMember(type, c_index, m_index)", title='修改' v-else) #[fa(icon='edit')]
 
         hr
     // Add Member

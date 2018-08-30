@@ -43,9 +43,9 @@
                   span.ui.tiny.label
                     fa(icon='calendar-alt')
                     |  {{i.year}}
-                .col-auto
-                  a.text-info.mr-1(href='#', @click="clickEditInvestigator(type, i_index)", title='修改') #[fa(icon='edit')]
-                  a.text-danger(href='#', @click.prevent="modifyInvestigator('del', type, i_index)", title='刪除') #[fa(icon='trash')]
+                .col-auto.edit-del-btn
+                  a.mr-1(href='#', @click="clickEditInvestigator(type, i_index)", title='修改') #[fa(icon='edit')]
+                  a(href='#', @click.prevent="modifyInvestigator('del', type, i_index)", title='刪除') #[fa(icon='times')]
 
     // Add Investigator
     transition(enter-active-class='animated fadeInUp')

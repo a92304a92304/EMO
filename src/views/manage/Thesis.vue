@@ -27,9 +27,9 @@
                     fa(icon='users')
                     |  {{item.author}}
                     small.text-muted {{item.author_en}}
-                .col-auto
-                  a.text-info.mr-1(href='#', @click="clickEditThesis(currPage, t, i_index)", title='修改') #[fa(icon='edit')]
-                  a.text-danger(href='#', @click.prevent="delThesis(currPage, t, i_index)", title='刪除') #[fa(icon='trash')]
+                .col-auto.edit-del-btn
+                  a.mr-1(href='#', @click="clickEditThesis(currPage, t, i_index)", title='修改') #[fa(icon='edit')]
+                  a(href='#', @click.prevent="delThesis(currPage, t, i_index)", title='刪除') #[fa(icon='times')]
 
     // Add Thesis
     transition(enter-active-class='animated fadeInUp')
