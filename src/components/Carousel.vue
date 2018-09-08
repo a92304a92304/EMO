@@ -9,7 +9,7 @@ section(v-if='data')
     template(v-for='i in count')
       a(@click.prevent='goPage(i-1)' href='#' :class='{ active: (i-1) == getCarousel()}')
 
-  carousel(v-if='data' ref='carousel' :per-page='1' :autoplay='true' :autoplayHoverPause='true' :loop='true' :paginationEnabled='false' style={ height: `100%`, width: `100%`, position: `relative`, background: `#333`, margin: 0 })
+  carousel(v-if='data' ref='carousel' :per-page='1' :autoplay='true' :autoplayHoverPause='true' :loop='true' :autoplayTimeout='data.interval' :paginationEnabled='false' style={ height: `100%`, width: `100%`, position: `relative`, background: `#333`, margin: 0 })
     slide(v-for='(c, c_index) in data.content' style={ textAlign: `center` } :key='c')
       img.img-fluid(:src='c' style={ height: `100%`, objectFit: `cover`} :key='c' @click='f()')
 </template>
