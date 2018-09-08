@@ -109,7 +109,7 @@
                           .ui.blue.label.mx-2(v-if="newObj.content.img!=''")
                             | 已上傳圖片
                             a(href='#', @click="newObj.content.img=''")
-                              i.fas.fa-times
+                              fa(icon='times')
                         .custom-file
                           input.custom-file-input(type='file', accept='image/*', @change='UploadMemberImg($event)')
                           label.custom-file-label Choose New File...

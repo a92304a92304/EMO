@@ -122,7 +122,7 @@
                     label #[fa(icon='file-pdf')] 附加檔案 #[small Attachment]
                     div
                       transition(mode='out-in', enter-active-class='animated bounceIn')
-                        .ui.blue.image.label.mx-2.mb-2(v-if="newObj.content.attachment!=''")
+                        .ui.blue.image.label.mx-2.mb-2(v-if="newObj.content.attachment")
                           a(:href='newObj.content.attachment' target='_blank') #[fa(icon='file-pdf')]
                           |  已上傳
                           a(href='#', @click.prevent="newObj.content.attachment=''") #[fa(icon='times')]

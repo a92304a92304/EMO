@@ -14,23 +14,23 @@ let config = {
   messagingSenderId: '1032487985417'
 }
 
-config = {
-  apiKey: "AIzaSyA5qAh7_q-7twao4PIM-is2YZ9yTVNXsrc",
-  authDomain: "clone-em.firebaseapp.com",
-  databaseURL: "https://clone-em.firebaseio.com",
-  projectId: "clone-em",
-  storageBucket: "clone-em.appspot.com",
-  messagingSenderId: "485365432611"
-}
-
-config = {
-  apiKey: "AIzaSyCu_nOlhf8dFTsnVNn3Bby_BLXmjnPmXL8",
-  authDomain: "ntut-emo.firebaseapp.com",
-  databaseURL: "https://ntut-emo.firebaseio.com",
-  projectId: "ntut-emo",
-  storageBucket: "ntut-emo.appspot.com",
-  messagingSenderId: "536584292025"
-}
+// config = {
+//   apiKey: "AIzaSyA5qAh7_q-7twao4PIM-is2YZ9yTVNXsrc",
+//   authDomain: "clone-em.firebaseapp.com",
+//   databaseURL: "https://clone-em.firebaseio.com",
+//   projectId: "clone-em",
+//   storageBucket: "clone-em.appspot.com",
+//   messagingSenderId: "485365432611"
+// }
+//
+// config = {
+//   apiKey: "AIzaSyCu_nOlhf8dFTsnVNn3Bby_BLXmjnPmXL8",
+//   authDomain: "ntut-emo.firebaseapp.com",
+//   databaseURL: "https://ntut-emo.firebaseio.com",
+//   projectId: "ntut-emo",
+//   storageBucket: "ntut-emo.appspot.com",
+//   messagingSenderId: "536584292025"
+// }
 
 firebase.initializeApp(config)
 

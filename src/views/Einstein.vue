@@ -54,7 +54,8 @@ main
               .row
                 .col-12.col-lg-9.order-2.order-lg-1
                   h5
-                    a(:href='i.link', target='_blank', v-html='selectTextLanguage(language, i.title, i.title_en)')
+                    a(:href='i.link' target='_blank' v-if='i.link') {{ selectTextLanguage(language, i.title, i.title_en) }}
+                    template(v-else) {{ selectTextLanguage(language, i.title, i.title_en) }}
                   p(v-html='selectTextLanguage(language, i.content, i.content_en)')
                   a.ui.label(v-if="i.attachment" :href='i.attachment' target='_blank') #[fa(icon='file-pdf')]
                   a.ui.label(v-if="translateYoutubeLink(i.youtube) != ''" @click='showModalYoutube(i.youtube)')

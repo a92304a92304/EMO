@@ -130,10 +130,11 @@ export default {
       var newObj = this.newObj
       var ref = dbRef.child('index/' + type)
 
-      if(newObj.type == `events`) {
-        newObj.content.content = this.replacePTag(newObj.content.content)
-        newObj.content.content_en = this.replacePTag(newObj.content.content_en)
-      }
+      if(opertaion != 'introduction')
+        if(newObj.type == `events`) {
+          newObj.content.content = this.replacePTag(newObj.content.content)
+          newObj.content.content_en = this.replacePTag(newObj.content.content_en)
+        }
 
       switch (opertaion) {
         case 'add':
