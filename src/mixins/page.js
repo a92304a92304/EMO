@@ -16,7 +16,6 @@ const page = {
         backgroundImage: `url('${url}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
-        backgroundAttachment: `fixed`,
       }
     },
     fetch (page) {
