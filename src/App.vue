@@ -66,4 +66,5 @@ export default {
 <style lang="sass">
 @import "assets/css/semantic"
 @import "~bootstrap/scss/bootstrap"
+
 </style>

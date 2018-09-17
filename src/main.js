@@ -50,9 +50,7 @@ Vue.use(VueCarousel)
 Vue.config.productionTip = false
 
 Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyB89B6sQ9QcXinMYZkXq47fq7Y3uIChKlE',
-  },
+  load: { key: 'AIzaSyBS6J7v9nG5bvbIN-mR0NhSjRdNtigemJk' },
 })
 
 router.beforeEach((to, from, next) => {

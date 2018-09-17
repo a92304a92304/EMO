@@ -54,10 +54,7 @@ export default {
     this.setBg()
     this.fetch('contact')
   },
-  methods: {
-  },
   mixins: [page],
-
 }
 </script>
 

@@ -34,8 +34,8 @@ import * as config from '@/config'
 export default {
   data () {
     return {
-      email: 'a92304a92304@gmail.com',
-      password: '123456',
+      email: '',
+      password: '',
       loginMessage: '',
     }
   },
@@ -43,21 +43,20 @@ export default {
     this.checkAuth(this.setLoginMessage)
   },
   methods: {
-    login: function () { // [登入]
+    login () { // [登入]
       const vm = this
-      const promise = config.auth.signInWithEmailAndPassword(this.email, this.password)
+      config.auth.signInWithEmailAndPassword(this.email, this.password)
+        .then((e) => { // 登入成功
+          vm.setLoginMessage('')
+          vm.$router.push('/manage/index')
+        })
+        .catch((e) => {  // 登入失敗
+          vm.setLoginMessage(e.message)
+        })
+
       vm.setLoginMessage('loading')  // 旋轉圓圈
-
-      promise.catch(function (e) {  // 登入失敗
-        vm.setLoginMessage(e.message)
-      })
-
-      promise.then(function (e) { // 登入成功
-        vm.setLoginMessage('')
-        vm.$router.push('/manage/index')
-      })
     },
-    checkAuth: function (setLoginMessage) { // [檢查登入狀態]
+    checkAuth (setLoginMessage) { // [檢查登入狀態]
       const vm = this
       const unsubscribe = config.auth.onAuthStateChanged(function (user) {
         if (user) {
@@ -67,7 +66,7 @@ export default {
         }
       })
     },
-    setLoginMessage: function (string) {
+    setLoginMessage (string) {
       this.loginMessage = (string == '') ? '' : string
     },
   },
