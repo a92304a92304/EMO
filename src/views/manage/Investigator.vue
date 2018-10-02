@@ -39,7 +39,7 @@
                   br
                   small.text-muted {{i.content_en}}
                 .col(v-if="type == 'reviewer'")
-                  | {{i.content}}
+                  span {{i.content}}
                   span.ui.tiny.label
                     fa(icon='calendar-alt')
                     |  {{i.year}}
@@ -154,6 +154,12 @@ export default {
       let list = []
       let newObj = this.newObj
       let ref = dbRef.child('investigator/' + type)
+
+      if(opertaion != 'introduction')
+        if(newObj.type == `reviewer` || newObj.type == `researchProject`) {
+          newObj.content.content = this.replacePTag(newObj.content.content)
+          newObj.content.content_en = this.replacePTag(newObj.content.content_en)
+        }
 
       switch (opertaion) {
         case 'add':

@@ -185,7 +185,7 @@ export default {
               } else alert(e)
             })
           }else{
-              vm.ShowSnackbar(WAITING_UPLOAD_MSG)
+              vm.ShowSnackbar(config.WAITING_UPLOAD_MSG)
           }
           break
         case 'edit':
@@ -198,7 +198,7 @@ export default {
           })
           break
         case 'del':
-          if(confirm(CONFIRM_MSG)){
+          if(confirm(config.CONFIRM_MSG)){
             ref.on('value', function(snap) {
               list = (snap.val()) ? snap.val() : []
             })
@@ -227,8 +227,8 @@ export default {
       const vm = this
       const dbRef = config.dbRef
       var file = evt.target.files[0]
-      var fileName = this.GetRandomNum().toString()
-      var uploadTask = storageRef.child('member/'+ fileName).put(file)
+      var fileName = this.getRandomNum().toString()
+      var uploadTask = config.storageRef.child('member/'+ fileName).put(file)
 
       if(evt.target.files[0].size >  config.MAX_FILE_SIZE){
         vm.$notify({ group: 'snackbar', type: 'error', title: config.FILE_SIZE_MSG })

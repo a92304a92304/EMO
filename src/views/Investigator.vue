@@ -37,7 +37,7 @@ main
         ul.ui.divided.animated.very.relaxed.list
           template(v-for='r in investigator.reviewer')
             li.item
-              | {{r.content}}
+              span(v-html='r.content')
               span.text-muted ({{r.year}})
 </template>
 

@@ -7,7 +7,6 @@
 
 <script>
 import Cookies from 'js-cookie'
-
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 
