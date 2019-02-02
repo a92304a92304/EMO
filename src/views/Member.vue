@@ -85,9 +85,11 @@ export default {
   },
   methods: {
     translateDate (ch) {
+      if (typeof ch !== `string`) return ch
       return ch.replace(/年/g, '/').replace(/月/g, '').replace(/至/g, ' ~ ')
     },
     translateGrade (ch) {
+      if (typeof ch !== `string`) return ch
       return ch.replace('大一', 'Freshman').replace('大二', 'Sophomore').replace('大三', 'Junior').replace('大四', 'Senior')
       .replace('碩一', 'First year of graduate school').replace('碩二', 'Second year of graduate school')
     },
