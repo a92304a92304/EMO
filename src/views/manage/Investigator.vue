@@ -156,7 +156,7 @@ export default {
       let ref = dbRef.child('investigator/' + type)
 
       if(opertaion != 'introduction')
-        if(newObj.type == `reviewer` || newObj.type == `researchProject`) {
+        if(newObj && (newObj.type == `reviewer` || newObj.type == `researchProject`)) {
           newObj.content.content = this.replacePTag(newObj.content.content)
           newObj.content.content_en = this.replacePTag(newObj.content.content_en)
         }

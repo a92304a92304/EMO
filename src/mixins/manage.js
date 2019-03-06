@@ -54,7 +54,12 @@ const manage = {
       return num
     },
     replacePTag (text) {
-      return text.replace(/<p>/g, ``).replace(/<\/p>/g, ``)
+      if (typeof text !== `string`) return ``
+      try {
+        return text.replace(/<p>/g, ``).replace(/<\/p>/g, ``)
+      } catch (e) {
+        return text || ``
+      }
     },
   },
   components: {
