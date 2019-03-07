@@ -52,7 +52,7 @@ main
         .col-12.col-lg-4.mt-3.mb-5.mb-md-0.mobile-no-padding(v-if='calcObjLength(index.events)!=0')
           h2.text-center
             i.fas.fa-calendar-alt.color-primary-dark
-            |    {{(!language) ? '近期活動' : 'Upcoming Events'}}
+            |    {{(!language) ? '最新公告' : 'Latest News'}}
           .ui.olive.segment
             .ui.relaxed.divided.list
               .item(v-for='e in index.events')

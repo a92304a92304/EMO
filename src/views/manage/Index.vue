@@ -19,8 +19,8 @@
             | 研究議題
             small Research Highlights
           span(v-else-if="type=='events'")
-            | 近期活動
-            small Upcoming Events
+            | 最新公告
+            small Latest News
           a.compact.ui.tiny.button.mx-3(title='新增' @click.prevent="clickAddIndex(type)") #[fa(icon='plus')]
 
         draggable(v-model='index[type]', @end="modifyIndex('sort', type, index[type])", :class="'ui middle aligned divided list mb-5'")
