@@ -19,7 +19,7 @@ main
         template(v-for='t in investigator.teaching')
           h5
             | {{(!language) ? t.name : t.name_en}}
-            span(v-if="t.year!=''") （{{t.year}}）
+            span(v-if="t.year!=''") {{ !language ? `（${t.year}）` : ` (${t.year})` }}
           p.mb-5.pl-0.pl-sm-3.sr(v-html='(!language) ? t.content : t.content_en')
 
     hr
@@ -38,7 +38,7 @@ main
           template(v-for='r in investigator.reviewer')
             li.item
               span(v-html='r.content')
-              span.text-muted ({{r.year}})
+              span.text-muted  ({{r.year}})
 </template>
 
 <script>
