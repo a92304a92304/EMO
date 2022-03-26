@@ -172,7 +172,7 @@ export default {
           ref.on('value', function(snap) {
             list = (snap.val()) ? snap.val() : []
           })
-          list.push(newObj.content)
+          list.unshift(newObj.content)
           ref.set(list, (e) => {
             if (!e) {
               vm.$notify({ group: 'snackbar', type: 'success', title: '✓ 成功新增' })
