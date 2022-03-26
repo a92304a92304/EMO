@@ -1,5 +1,11 @@
 # emo
 
+⚠️ Require node v10
+
+```
+nvm use 10
+```
+
 ## Project setup
 ```
 npm install
